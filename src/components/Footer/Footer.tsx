@@ -1,26 +1,20 @@
 import * as React from 'react';
-import styled from 'styled-components';
 
-function Footer() {
+import FooterWrapper from '../FooterWrapper';
+import { getProductCategories } from '@/api/auth/products';
+
+async function Footer() {
+  const links = await getProductCategories();
   return (
-    <Wrapper>
+    <FooterWrapper>
       <ul>
-        <li>Products</li>
+        {Array.isArray(links) &&
+          links.map((link: string, index: number) => (
+            <li key={index}>{link}</li>
+          ))}
       </ul>
-    </Wrapper>
+    </FooterWrapper>
   );
 }
-
-const Wrapper = styled.footer`
-  background-image: linear-gradient(to right, hsl(0deg 0% 100% / 30%) 0 100%),
-    url('/background-footer.svg');
-  background-size: cover;
-  background-position: bottom center;
-  min-height: 300px;
-  display: flex;
-  justify-content: flex-start;
-  align-items: flex-end;
-  padding: 20px 60px;
-`;
 
 export default Footer;

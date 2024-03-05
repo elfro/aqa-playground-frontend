@@ -1,8 +1,10 @@
+'use client';
+
 import * as React from 'react';
 import { useRouter } from 'next/navigation';
 import styled from 'styled-components';
 
-import { LogIn, ShoppingBag, Menu } from 'react-feather';
+import { LogIn, LogOut, Menu, ShoppingBag } from 'react-feather';
 
 import Logo from '@/components/Logo';
 import UnstyledButton from '@/components/UnstyledButton';
@@ -10,9 +12,13 @@ import VisuallyHidden from '@/components/VisuallyHidden';
 import { QUERIES } from '@/constants';
 import NavLink from '@/components/NavLink';
 
-function Header() {
-  const router = useRouter();
+import {
+  USER_ACTION,
+  useUser,
+  useUserActions,
+} from '@/components/UserProvider';
 
+function Header() {
   return (
     <header>
       <Wrapper>
@@ -20,7 +26,7 @@ function Header() {
           <Logo />
         </LogoWrapper>
         <Nav>
-          <NavLink href='/'>Products</NavLink>
+          <NavLink href='/products'>Here</NavLink>
           <NavLink href='/'>Products</NavLink>
           <NavLink href='/'>Products</NavLink>
           <NavLink href='/'>Products</NavLink>
@@ -30,10 +36,7 @@ function Header() {
             <ShoppingBag size={24} />
             <VisuallyHidden>Open Card</VisuallyHidden>
           </UnstyledButton>
-          <UnstyledButton onClick={() => router.push('/signin')}>
-            <LogIn size={24} />
-            <VisuallyHidden>Sign in</VisuallyHidden>
-          </UnstyledButton>
+          <AuthButton />
         </DesktopActions>
         <MobileActions>
           <UnstyledButton>
@@ -50,10 +53,63 @@ function Header() {
   );
 }
 
+function AuthButton() {
+  const router = useRouter();
+  const user = useUser();
+  const userDispatch = useUserActions();
+
+  // ToDo: extract to custom hook
+  const [hasMounted, setHasMounted] = React.useState(false);
+
+  React.useEffect(() => {
+    setHasMounted(true);
+  }, []);
+  if (!hasMounted) {
+    return null;
+  }
+
+  const shouldSignIn = !user?.isLoggedIn;
+
+  function handleSignOut(e: React.MouseEvent<HTMLButtonElement>) {
+    e.preventDefault();
+    if (userDispatch) {
+      userDispatch({
+        type: USER_ACTION.RESET,
+      });
+    }
+    router.push('/');
+  }
+
+  if (!shouldSignIn) {
+    return (
+      <UnstyledButton onClick={handleSignOut}>
+        <LogOut size={24} />
+        <VisuallyHidden>Sign out</VisuallyHidden>
+      </UnstyledButton>
+    );
+  }
+
+  return (
+    <>
+      <UnstyledButton
+        onClick={(e) => {
+          e.preventDefault();
+          router.push('/signin');
+        }}
+      >
+        <LogIn size={24} />
+        <VisuallyHidden>Sign in</VisuallyHidden>
+      </UnstyledButton>
+      {<div>{user?.username}</div>}
+    </>
+  );
+}
+
 const Wrapper = styled.div`
   display: flex;
   align-items: baseline;
   padding: 20px;
+  background-color: var(--color-white);
 `;
 
 const LogoWrapper = styled.div`
@@ -92,4 +148,4 @@ const MobileActions = styled(Actions)`
     display: flex;
   }
 `;
-export default Header;
+export default React.memo(Header);

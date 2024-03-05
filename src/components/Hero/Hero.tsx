@@ -9,9 +9,10 @@ function Hero({ children }: HeroProps) {
   return <Wrapper>{children}</Wrapper>;
 }
 
-const Wrapper = styled.div`
+const Wrapper = styled.section`
   background-image: linear-gradient(to right, hsl(0deg 0% 100% / 30%) 0 100%),
-    url('/layered-waves-low.svg');
+    url('/hero.svg');
+  background-color: hsl(185deg 5% 95%);
   background-size: cover;
   background-position: bottom center;
   width: 100%;

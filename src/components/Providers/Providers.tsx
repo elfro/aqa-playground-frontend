@@ -1,9 +1,14 @@
 import * as React from 'react';
 
-import StyledComponentsRegistry from '@/app/lib/registry';
+import StyledComponentsRegistry from '@/lib/registry';
+import UserProvider from '@/components/UserProvider';
 
 function Providers(props: React.PropsWithChildren) {
-  return <StyledComponentsRegistry>{props.children}</StyledComponentsRegistry>;
+  return (
+    <StyledComponentsRegistry>
+      <UserProvider>{props.children}</UserProvider>
+    </StyledComponentsRegistry>
+  );
 }
 
 export default Providers;

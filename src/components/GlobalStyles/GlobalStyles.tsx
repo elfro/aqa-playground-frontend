@@ -70,6 +70,7 @@ const GlobalStyles = createGlobalStyle`
         --color-white: hsl(${COLORS.white});
         --color-primary: hsl(${COLORS.primary});
         --color-secondary: hsl(${COLORS.secondary});
+        --color-secondary-light: hsl(${COLORS.secondary} / 80%);
         --color-gray-100: hsl(${COLORS.gray[100]});
         --color-gray-300: hsl(${COLORS.gray[300]});  
         --color-gray-500: hsl(${COLORS.gray[500]});  
@@ -78,7 +79,7 @@ const GlobalStyles = createGlobalStyle`
           
         --color-overlay-gray: hsl(${COLORS.gray[900]} / 0.8);
           
-        --content-width: 55rem;
+        --content-width: 110rem;
         --outer-content-width: 80rem;
         --viewport-padding: 16px;
         --header-height: 5rem;
@@ -86,7 +87,7 @@ const GlobalStyles = createGlobalStyle`
                 var(--content-width) - var(--viewport-padding) * 2
         );
         
-        background-color: var(--color-white);
+        background-color: var(--color-gray-100);
     }
 
     @media (min-width: 35rem) {

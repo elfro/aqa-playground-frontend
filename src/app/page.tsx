@@ -1,26 +1,22 @@
 'use client';
 
-import Header from '@/components/Header';
+import * as React from 'react';
 import styled from 'styled-components';
 
-import Footer from '@/components/Footer';
 import Hero from '@/components/Hero';
+import MaxWidthWrapper from '@/components/MaxWidthWrapper';
+
 import { QUERIES } from '@/constants';
 
+// ToDo: add metadata
 function Home() {
   return (
-    <>
-      <Header />
-      <main>
-        <Hero>
-          <Title>E2E Playground</Title>
-        </Hero>
-        <BackGroundWrapper>
-          <MaxWidthWrapper></MaxWidthWrapper>
-        </BackGroundWrapper>
-      </main>
-      <Footer />
-    </>
+    <main>
+      <Hero>
+        <Title>E2E Playground</Title>
+      </Hero>
+      <MaxWidthWrapper></MaxWidthWrapper>
+    </main>
   );
 }
 
@@ -34,22 +30,6 @@ const Title = styled.h1`
     margin-top: revert;
     font-size: 3rem;
   }
-`;
-
-const BackGroundWrapper = styled.div`
-  background-image: linear-gradient(to right, hsl(0deg 0% 100% / 30%) 0 100%),
-    url('/wave-main-2.svg');
-  background-size: cover;
-  background-position: top center;
-  background-repeat: no-repeat;
-`;
-
-const MaxWidthWrapper = styled.div`
-  //width: 100%;
-  max-width: var(--content-width);
-  padding: 64px var(--viewport-padding);
-  margin: 0 auto;
-  height: 400px;
 `;
 
 export default Home;

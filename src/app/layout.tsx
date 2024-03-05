@@ -5,6 +5,9 @@ import { Inter } from 'next/font/google';
 
 import GlobalStyles from '@/components/GlobalStyles/GlobalStyles';
 import Providers from '@/components/Providers/Providers';
+import MainPageWrapper from '@/components/MainPageWrapper';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -22,7 +25,17 @@ function RootLayout({
     <html lang='en'>
       <Providers>
         <GlobalStyles />
-        <body className={inter.className}>{children}</body>
+        <body className={inter.className}>
+          <MainPageWrapper>
+            <React.Suspense>
+              <Header />
+            </React.Suspense>
+            {children}
+            <React.Suspense>
+              <Footer />
+            </React.Suspense>
+          </MainPageWrapper>
+        </body>
       </Providers>
     </html>
   );
