@@ -1,0 +1,23 @@
+export interface Item {
+  title: string;
+  slug: string;
+  nextMenuItems?: Item[];
+}
+export const MENU_ITEMS: Item[] = [
+  {
+    title: 'Products',
+    slug: '/products',
+  },
+  {
+    title: 'About Us',
+    slug: '/about',
+  },
+  {
+    title: 'Contacts',
+    slug: '/contacts',
+  },
+  {
+    title: 'FAQ',
+    slug: '/faq',
+  },
+];

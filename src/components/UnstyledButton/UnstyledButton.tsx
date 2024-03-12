@@ -1,9 +1,13 @@
 import styled from 'styled-components';
+import * as React from 'react';
 
-interface ButtonProps {
+export interface UnstyledButtonProps
+  extends React.ComponentPropsWithRef<'button'> {
   display?: string;
+  // transient prop, ref: https://styled-components.com/docs/api#transient-props
+  $active?: boolean;
 }
-export default styled.button<ButtonProps>`
+export default styled.button<UnstyledButtonProps>`
   display: ${(props) => props.display || 'block'};
   margin: 0;
   padding: 0;

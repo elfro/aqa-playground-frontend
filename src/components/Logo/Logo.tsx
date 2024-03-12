@@ -1,7 +1,7 @@
 import * as React from 'react';
 import styled from 'styled-components';
 import Link from 'next/link';
-import { WEIGHTS } from '@/constants';
+import { WEIGHTS } from '@/constants/styles.constants';
 
 function Logo() {
   return (
@@ -14,7 +14,7 @@ function Logo() {
 const LinkWrapper = styled(Link)`
   display: block;
   text-decoration: none;
-  color: var(--color-secondary);
+  color: var(--color-primary);
 `;
 
 const Title = styled.h1`

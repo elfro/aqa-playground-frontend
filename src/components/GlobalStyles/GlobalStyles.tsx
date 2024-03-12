@@ -1,8 +1,5 @@
 'use client';
 
-import { createGlobalStyle } from 'styled-components';
-import { COLORS } from '@/constants';
-
 const GlobalStyles = createGlobalStyle`
     /*
   1. Use a more-intuitive box-sizing model.
@@ -63,22 +60,29 @@ const GlobalStyles = createGlobalStyle`
     #root, #__next {
         isolation: isolate;
     }
-    
+
     /* Global styles */
     /* THEME VARIABLES */
     html {
-        --color-white: hsl(${COLORS.white});
         --color-primary: hsl(${COLORS.primary});
+        --color-primary-light: hsl(${COLORS.primary} / 80%);
         --color-secondary: hsl(${COLORS.secondary});
-        --color-secondary-light: hsl(${COLORS.secondary} / 80%);
+ 
+        --color-white: hsl(${COLORS.white});
+        --color-offwhite: hsl(${COLORS.offwhite});
+        --color-black: hsl(${COLORS.black});
+ 
         --color-gray-100: hsl(${COLORS.gray[100]});
-        --color-gray-300: hsl(${COLORS.gray[300]});  
-        --color-gray-500: hsl(${COLORS.gray[500]});  
-        --color-gray-700: hsl(${COLORS.gray[700]});  
+        --color-gray-300: hsl(${COLORS.gray[300]});
+        --color-gray-500: hsl(${COLORS.gray[500]});
+        --color-gray-700: hsl(${COLORS.gray[700]});
         --color-gray-900: hsl(${COLORS.gray[900]});
-          
+        
+        --color-gray-500-transparent15: hsl(${COLORS.gray[500]} / 0.15);
+        --color-gray-500-transparent75: hsl(${COLORS.gray[500]} / 0.75);
+
         --color-overlay-gray: hsl(${COLORS.gray[900]} / 0.8);
-          
+
         --content-width: 110rem;
         --outer-content-width: 80rem;
         --viewport-padding: 16px;
@@ -86,7 +90,7 @@ const GlobalStyles = createGlobalStyle`
         --trimmed-content-width: calc(
                 var(--content-width) - var(--viewport-padding) * 2
         );
-        
+
         background-color: var(--color-gray-100);
     }
 
@@ -96,5 +100,8 @@ const GlobalStyles = createGlobalStyle`
         }
     }
 `;
+import { createGlobalStyle } from 'styled-components';
+
+import { COLORS } from '@/constants/styles.constants';
 
 export default GlobalStyles;

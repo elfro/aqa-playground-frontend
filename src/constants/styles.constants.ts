@@ -12,6 +12,8 @@ export const QUERIES = {
 
 export const COLORS = {
   white: '0deg 0% 100%',
+  offwhite: '240deg 85% 97%',
+  black: '0deg 0% 0%',
   gray: {
     100: '185deg 5% 95%',
     300: '190deg 5% 80%',
@@ -19,8 +21,8 @@ export const COLORS = {
     700: '220deg 5% 40%',
     900: '220deg 3% 20%',
   },
-  primary: '340deg 65% 47%',
-  secondary: '240deg 60% 63%',
+  secondary: '340deg 65% 47%',
+  primary: '240deg 60% 63%',
 };
 
 export const WEIGHTS = {

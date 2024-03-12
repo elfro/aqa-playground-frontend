@@ -4,16 +4,17 @@ import styled from 'styled-components';
 
 import MaxWidthWrapper from '@/components/MaxWidthWrapper/MaxWidthWrapper';
 
-import { QUERIES } from '@/constants';
+import { QUERIES } from '@/constants/styles.constants';
 
 const ProductsWrapper = styled(MaxWidthWrapper)`
-  display: grid;
-  grid-template-columns: 250px 1fr;
-  gap: 16px;
-  align-content: center;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 32px;
 
   ${QUERIES.tabletAndLess} {
-    grid-template-columns: 1fr;
+    flex-direction: column;
+    gap: revert;
   }
 `;
 

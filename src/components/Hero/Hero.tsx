@@ -1,6 +1,6 @@
 import * as React from 'react';
 import styled from 'styled-components';
-import { QUERIES } from '@/constants';
+import { QUERIES } from '@/constants/styles.constants';
 
 interface HeroProps {
   children: React.ReactNode;

@@ -2,26 +2,35 @@
 
 import * as React from 'react';
 import Link from 'next/link';
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
 
-import { WEIGHTS } from '@/constants';
 import Button from '@/components/Button';
 
+import { WEIGHTS } from '@/constants/styles.constants';
+
 export interface IProduct {
-  [key: string]: string | number;
+  id: number;
+  title: string;
+  price: string;
+  quantity: number;
+  description: string;
+  image: string;
+  category: {
+    title: string;
+    slug: string;
+  };
 }
 
 function ProductCard({ product }: { product: IProduct }) {
-  const { id, title, price, quantity, description, image, category } = product;
   return (
     <LinkWrapper href='#'>
       <Card>
         <ImageWrapper>
-          <Img alt='' src={image} loading='lazy' />
+          <Img alt='' src={product.image} loading='lazy' />
         </ImageWrapper>
         <Row>
-          <Name>{title}</Name>
-          <Price>{price}</Price>
+          <Name>{product.title}</Name>
+          <Price>{product.price}</Price>
         </Row>
         <Row>
           <Button
@@ -30,7 +39,7 @@ function ProductCard({ product }: { product: IProduct }) {
             value='Add to card'
             onClick={(e) => {
               e.preventDefault();
-              window.alert(title);
+              window.alert(product.title);
             }}
           >
             Add to card
@@ -133,7 +142,7 @@ const Name = styled.h3`
 `;
 
 const Price = styled.span`
-  color: var(--color-secondary);
+  color: var(--color-primary);
   text-decoration: var(--text-decoration);
   font-weight: ${WEIGHTS.medium};
 `;

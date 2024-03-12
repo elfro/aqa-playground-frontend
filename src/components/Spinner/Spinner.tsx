@@ -4,13 +4,13 @@ import * as React from 'react';
 import styled, { keyframes } from 'styled-components';
 import { IconProps, Loader } from 'react-feather';
 
-const Spinner: React.FC<IconProps> = ({ color, size }) => {
+function Spinner({ color, size }: IconProps) {
   return (
     <Wrapper>
       <Loader color={color} size={size} />
     </Wrapper>
   );
-};
+}
 
 const spin = keyframes`
   from {

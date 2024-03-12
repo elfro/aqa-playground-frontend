@@ -1,27 +1,13 @@
 import * as React from 'react';
 import styled from 'styled-components';
 
-// ToDo: merge colors with GlobalStyles
-const COLORS = {
-  primary: 'hsl(240deg 100% 60%)',
-  primaryLight: 'hsl(235deg 100% 66%)',
-  white: 'hsl(0deg 0% 100%)',
-  offwhite: 'hsl(235deg 85% 97%)',
-  gray: 'hsl(240deg 10% 50%)',
-  transparentGray15: 'hsl(240deg 10% 50% / 0.15)',
-  transparentGray75: 'hsl(240deg 10% 50% / 0.75)',
-  black: 'hsl(0deg 0% 0%)',
-};
-
-interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+export interface ButtonProps extends React.ComponentPropsWithoutRef<'button'> {
   variant?: 'fill' | 'outline' | 'ghost';
   size: 'small' | 'medium' | 'large';
   children: string | undefined;
-  onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
-  disabled?: boolean; // make the button disabled or not
 }
-function Button({ variant, size, disabled, children, onClick }: ButtonProps) {
-  // ToDo: fix any type
+function Button(props: ButtonProps) {
+  const { variant, size, children, ...prop } = props;
   const ButtonComponent =
     variant === 'outline'
       ? OutlineButton
@@ -34,8 +20,7 @@ function Button({ variant, size, disabled, children, onClick }: ButtonProps) {
       size={size}
       title={children}
       aria-label={children}
-      onClick={onClick}
-      disabled={disabled}
+      {...prop}
     >
       {children}
     </ButtonComponent>
@@ -68,10 +53,10 @@ const ButtonBase = styled.button<ButtonProps>`
 
 const FillButton = styled(ButtonBase)`
   color: var(--color-white);
-  background: var(--color-secondary);
+  background: var(--color-primary);
 
   &:hover {
-    background: var(--color-secondary-light);
+    background: var(--color-primary-light);
   }
 
   &:focus {
@@ -81,31 +66,31 @@ const FillButton = styled(ButtonBase)`
 `;
 
 const OutlineButton = styled(ButtonBase)`
-  color: ${COLORS.primary};
+  color: var(--color-primary);
   background: var(--color-white);
-  border: 2px solid ${COLORS.primary};
+  border: 2px solid var(--color-primary);
 
   &:hover {
-    background: ${COLORS.offwhite};
+    background: var(--color-offwhite);
   }
 
   &:focus {
-    outline: 2px solid ${COLORS.primary};
+    outline: 2px solid var(--color-primary);
     outline-offset: -5px;
   }
 `;
 
 const GhostButton = styled(ButtonBase)`
-  color: ${COLORS.gray};
+  color: var(--color-gray-500);
   background: transparent;
 
   &:hover {
-    color: ${COLORS.black};
-    background: ${COLORS.transparentGray15};
+    color: var(--color-black);
+    background: var(--color-gray-500-transparent15);
   }
 
   &:focus {
-    outline: 2px solid ${COLORS.transparentGray75};
+    outline: 2px solid var(--color-gray-500-transparent75);
     outline-offset: -5px;
   }
 `;

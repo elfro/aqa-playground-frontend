@@ -4,14 +4,12 @@ import FooterWrapper from '../FooterWrapper';
 import { getProductCategories } from '@/api/auth/products';
 
 async function Footer() {
-  const links = await getProductCategories();
+  const links: { title: string; slug: string }[] = await getProductCategories();
   return (
     <FooterWrapper>
       <ul>
         {Array.isArray(links) &&
-          links.map((link: string, index: number) => (
-            <li key={index}>{link}</li>
-          ))}
+          links.map((link, index: number) => <li key={index}>{link.title}</li>)}
       </ul>
     </FooterWrapper>
   );

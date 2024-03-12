@@ -3,22 +3,23 @@
 import * as React from 'react';
 import styled from 'styled-components';
 
-import { WEIGHTS } from '@/constants';
+import { WEIGHTS } from '@/constants/styles.constants';
 
-interface NavLinkProps {
+interface NavLinkProps extends React.ComponentPropsWithoutRef<'a'> {
   href: string;
   children: React.ReactNode;
+  $active?: boolean;
 }
-function NavLink({ href, children }: NavLinkProps) {
+function NavLink({ href, $active, children }: NavLinkProps) {
   return (
-    <Link href={href}>
+    <Link href={href} $active={$active}>
       <Text>{children}</Text>
       <SubText aria-hidden={true}>{children}</SubText>
     </Link>
   );
 }
 
-const Link = styled.a`
+const Link = styled.a<NavLinkProps>`
   position: relative;
   display: block;
   font-size: 1.125rem;
@@ -28,9 +29,14 @@ const Link = styled.a`
   font-weight: ${WEIGHTS.medium};
   text-wrap: nowrap;
   overflow: hidden;
+  border-bottom: ${(props) => (props.$active ? '1px solid' : 'none')};
 
   &:focus {
     outline-offset: 5px;
+  }
+
+  &:hover {
+    border-bottom-color: var(--color-primary);
   }
 `;
 
@@ -56,7 +62,7 @@ const SubText = styled(Text)`
   --translate-to: 0;
 
   position: absolute;
-  color: var(--color-secondary);
+  color: var(--color-primary);
   top: 0;
   left: 0;
 `;

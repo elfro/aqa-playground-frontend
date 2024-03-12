@@ -3,16 +3,29 @@
 import * as React from 'react';
 import styled from 'styled-components';
 
-import { QUERIES, WEIGHTS } from '@/constants';
+import { QUERIES, WEIGHTS } from '@/constants/styles.constants';
+import { usePathname } from 'next/navigation';
 
-function CategoriesList({ links }: { links: string[] }) {
+function CategoriesList({
+  links,
+}: {
+  links: { title: string; slug: string }[];
+}) {
+  const currentPathname = usePathname();
+
   return (
     <Wrapper>
-      {links.map((link, index) => (
-        <SidebarLink key={index} href={`/${link}`}>
-          {link}
-        </SidebarLink>
-      ))}
+      <StickySidebar>
+        {links.map((link, index) => (
+          <SidebarLink
+            key={index}
+            href={link.slug}
+            $active={currentPathname === link.slug}
+          >
+            {link.title}
+          </SidebarLink>
+        ))}
+      </StickySidebar>
     </Wrapper>
   );
 }
@@ -21,17 +34,32 @@ const Wrapper = styled.aside`
   ${QUERIES.tabletAndLess} {
     display: none;
   }
-
+  position: relative;
   background-color: var(--color-white);
   border-radius: 16px 16px 4px 4px;
   padding: 20px;
+  z-index: 1;
+  flex-basis: 248px;
+  align-self: stretch;
+
+  ${QUERIES.tabletAndLess} {
+    flex-basis: revert;
+  }
 `;
 
-const SidebarLink = styled.a`
+const StickySidebar = styled.div`
+  position: sticky;
+  top: var(--header-height);
+`;
+
+const SidebarLink = styled.a<{ $active: boolean }>`
   display: block;
   text-decoration: none;
+  text-transform: capitalize;
   font-weight: ${WEIGHTS.medium};
-  color: var(--color-gray-900);
+  color: var(
+    --${(props) => (props.$active ? 'color-primary' : 'color-gray-900')}
+  );
   line-height: 2;
 
   &:focus {

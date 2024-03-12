@@ -11,6 +11,7 @@ const Wrapper = styled.div`
   display: grid;
   grid-template-rows: auto 1fr auto;
   height: 100%;
+  isolation: isolate;
 `;
 
 export default MainPageWrapper;

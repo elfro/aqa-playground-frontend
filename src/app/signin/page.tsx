@@ -1,53 +1,66 @@
 'use client';
 
-import { ChangeEvent, useState } from 'react';
+import * as React from 'react';
 import { useFormState, useFormStatus } from 'react-dom';
+import { useRouter } from 'next/navigation';
 import styled from 'styled-components';
+
+import Button from '@/components/Button';
+import MainSection from '@/components/MainSection';
 
 import { authenticate } from '@/lib/actions';
 
 function SignInPage() {
   const [state, dispatch] = useFormState(authenticate, undefined);
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [username, setUsername] = React.useState('');
+  const [password, setPassword] = React.useState('');
+  const router = useRouter();
 
-  const handleUsernameChange = (event: ChangeEvent<HTMLInputElement>) =>
+  const handleUsernameChange = (event: React.ChangeEvent<HTMLInputElement>) =>
     setUsername(event.target.value);
-  const handlePasswordChange = (event: ChangeEvent<HTMLInputElement>) =>
+  const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) =>
     setPassword(event.target.value);
 
+  React.useEffect(() => {
+    if (state && state.accessToken !== undefined) {
+      router.push('/');
+    }
+  });
+
   return (
-    <Main>
-      <Title>Sign in</Title>
-      <Form action={dispatch}>
-        <EmailInput htmlFor='email'>
-          Username
-          <input
-            id='email'
-            name='email'
-            type='text'
-            value={username}
-            onChange={handleUsernameChange}
-            placeholder='Enter username...'
-            required={true}
-          />
-        </EmailInput>
-        <PasswordInput htmlFor='password'>
-          Password
-          <input
-            type='text'
-            id='password'
-            name='password'
-            value={password}
-            onChange={handlePasswordChange}
-            placeholder='Enter password...'
-            required={true}
-          />
-        </PasswordInput>
-        <SubmitButton />
-      </Form>
-      {state?.error && <div>{state.error}</div>}
-    </Main>
+    <MainSection>
+      <Wrapper>
+        <Title>Sign in</Title>
+        <Form action={dispatch}>
+          <EmailInput htmlFor='email'>
+            Username
+            <input
+              id='email'
+              name='email'
+              type='text'
+              value={username}
+              onChange={handleUsernameChange}
+              placeholder='Enter username...'
+              required={true}
+            />
+          </EmailInput>
+          <PasswordInput htmlFor='password'>
+            Password
+            <input
+              type='text'
+              id='password'
+              name='password'
+              value={password}
+              onChange={handlePasswordChange}
+              placeholder='Enter password...'
+              required={true}
+            />
+          </PasswordInput>
+          <SubmitButton />
+        </Form>
+        {state?.error && <div>{state.error}</div>}
+      </Wrapper>
+    </MainSection>
   );
 }
 
@@ -55,19 +68,19 @@ function SubmitButton() {
   const { pending } = useFormStatus();
 
   return (
-    <LoginButton type='submit' value='Sign In' aria-disabled={pending}>
+    <LoginButton
+      size='small'
+      variant='outline'
+      type='submit'
+      value='Sign In'
+      aria-disabled={pending}
+    >
       Sign In
     </LoginButton>
   );
 }
 
 const Wrapper = styled.div`
-  display: grid;
-  grid-template-rows: auto 1fr auto;
-  height: 100%;
-`;
-
-const Main = styled.main`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -105,7 +118,7 @@ const PasswordInput = styled(InputGroup)`
   flex-basis: 160px;
 `;
 
-const LoginButton = styled.button`
+const LoginButton = styled(Button)`
   flex-grow: 2;
   flex-basis: 200px;
 `;
