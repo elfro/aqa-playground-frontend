@@ -11,9 +11,11 @@ const ProductsWrapper = styled(MaxWidthWrapper)`
   flex-direction: row;
   align-items: flex-start;
   gap: 32px;
+  height: 100%;
 
   ${QUERIES.tabletAndLess} {
     flex-direction: column;
+    align-items: center;
     gap: revert;
   }
 `;

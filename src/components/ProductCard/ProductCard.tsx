@@ -7,6 +7,11 @@ import styled from 'styled-components';
 import Button from '@/components/Button';
 
 import { WEIGHTS } from '@/constants/styles.constants';
+import {
+  CART_ITEM_ACTIONS,
+  useCartItemActions,
+} from '@/components/CartProvider';
+import Image from 'next/image';
 
 export interface IProduct {
   id: number;
@@ -22,11 +27,19 @@ export interface IProduct {
 }
 
 function ProductCard({ product }: { product: IProduct }) {
+  const itemActions = useCartItemActions();
+
   return (
     <LinkWrapper href='#'>
       <Card>
         <ImageWrapper>
-          <Img alt='' src={product.image} loading='lazy' />
+          <Img
+            alt=''
+            src={product.image}
+            fill
+            priority
+            sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
+          />
         </ImageWrapper>
         <Row>
           <Name>{product.title}</Name>
@@ -38,8 +51,11 @@ function ProductCard({ product }: { product: IProduct }) {
             size='small'
             value='Add to card'
             onClick={(e) => {
+              itemActions({
+                type: CART_ITEM_ACTIONS.ADD_ITEM,
+                item: product,
+              });
               e.preventDefault();
-              window.alert(product.title);
             }}
           >
             Add to card
@@ -94,13 +110,12 @@ const Card = styled.article`
 
 const ImageWrapper = styled.div`
   position: relative;
+  height: 150px;
 `;
 
-const Img = styled.img`
+const Img = styled(Image)`
   display: block;
   object-fit: contain;
-  width: 100%;
-  height: 150px;
 
   transition: 500ms ease;
   transform-origin: center center;

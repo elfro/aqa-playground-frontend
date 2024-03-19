@@ -1,18 +1,12 @@
 import * as React from 'react';
 
-import FooterWrapper from '../FooterWrapper';
-import { getProductCategories } from '@/api/auth/products';
+import FooterNav from '@/components/FooterNav';
+
+import { getProductCategories } from '@/api/products/products';
 
 async function Footer() {
   const links: { title: string; slug: string }[] = await getProductCategories();
-  return (
-    <FooterWrapper>
-      <ul>
-        {Array.isArray(links) &&
-          links.map((link, index: number) => <li key={index}>{link.title}</li>)}
-      </ul>
-    </FooterWrapper>
-  );
+  return <FooterNav productLinks={links} />;
 }
 
 export default Footer;

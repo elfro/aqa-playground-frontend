@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { getProducts } from '@/api/auth/products';
+import { getProducts } from '@/api/products/products';
 import ProductsGrid from '@/components/ProductsGrid';
 
 async function ProductsList() {

@@ -8,8 +8,8 @@ function MainPageWrapper({ children }: { children: React.ReactNode }) {
 }
 
 const Wrapper = styled.div`
-  display: grid;
-  grid-template-rows: auto 1fr auto;
+  display: flex;
+  flex-direction: column;
   height: 100%;
   isolation: isolate;
 `;

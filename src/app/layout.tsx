@@ -8,6 +8,7 @@ import Providers from '@/components/Providers/Providers';
 import MainPageWrapper from '@/components/MainPageWrapper';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import Spacer from '@/components/Spacer';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -31,6 +32,7 @@ function RootLayout({
               <Header />
             </React.Suspense>
             {children}
+            <Spacer $size={64} />
             <React.Suspense>
               <Footer />
             </React.Suspense>

@@ -3,7 +3,7 @@ import * as React from 'react';
 import { IProduct } from '@/components/ProductCard';
 import ProductsGrid from '@/components/ProductsGrid';
 
-import { getProducts } from '@/api/auth/products';
+import { getProducts } from '@/api/products/products';
 
 async function CategoryPage({ params }: { params: { categorySlug: string } }) {
   const currentCategory = params.categorySlug;

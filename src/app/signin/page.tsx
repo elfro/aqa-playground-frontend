@@ -28,7 +28,7 @@ function SignInPage() {
   });
 
   return (
-    <MainSection>
+    <MainSectionWrapper>
       <Wrapper>
         <Title>Sign in</Title>
         <Form action={dispatch}>
@@ -60,7 +60,7 @@ function SignInPage() {
         </Form>
         {state?.error && <div>{state.error}</div>}
       </Wrapper>
-    </MainSection>
+    </MainSectionWrapper>
   );
 }
 
@@ -79,6 +79,12 @@ function SubmitButton() {
     </LoginButton>
   );
 }
+
+const MainSectionWrapper = styled(MainSection)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
 
 const Wrapper = styled.div`
   display: flex;

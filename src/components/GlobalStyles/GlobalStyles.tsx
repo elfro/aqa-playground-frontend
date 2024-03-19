@@ -23,9 +23,17 @@ const GlobalStyles = createGlobalStyle`
     }
 
     /*
+      4. CLS optimization  
+     */
+    
+    body {
+        overflow-y: scroll;
+    }
+    
+    /*
       Typographic tweaks!
-      4. Add accessible line-height
-      5. Improve text rendering
+      5. Add accessible line-height
+      6. Improve text rendering
     */
     body {
         line-height: 1.5;
@@ -33,7 +41,7 @@ const GlobalStyles = createGlobalStyle`
     }
 
     /*
-      6. Improve media defaults
+      7. Improve media defaults
     */
     img, picture, video, canvas, svg {
         display: block;
@@ -41,21 +49,21 @@ const GlobalStyles = createGlobalStyle`
     }
 
     /*
-      7. Remove built-in form typography styles
+      8. Remove built-in form typography styles
     */
     input, button, textarea, select {
         font: inherit;
     }
 
     /*
-      8. Avoid text overflows
+      9. Avoid text overflows
     */
     p, h1, h2, h3, h4, h5, h6 {
         overflow-wrap: break-word;
     }
 
     /*
-      9. Create a root stacking context
+      10. Create a root stacking context
     */
     #root, #__next {
         isolation: isolate;
@@ -94,6 +102,10 @@ const GlobalStyles = createGlobalStyle`
         background-color: var(--color-gray-100);
     }
 
+    p, h1, h2, h3, h4, h5, h6 {
+        color: var(--color-gray-900);
+    }
+    
     @media (min-width: 35rem) {
         html {
             --viewport-padding: 24px;

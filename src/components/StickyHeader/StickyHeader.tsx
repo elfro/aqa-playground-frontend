@@ -4,15 +4,12 @@ import * as React from 'react';
 import { usePathname } from 'next/navigation';
 import styled from 'styled-components';
 
-import { ShoppingBag } from 'react-feather';
-
 import Logo from '@/components/Logo';
 import NavLink from '@/components/NavLink';
-import VisuallyHidden from '@/components/VisuallyHidden';
 import AuthButton from '@/components/AuthButton';
 import MobileMenu from '@/components/MobileMenu';
 import ComponentOnMount from '@/components/ComponentOnMount';
-import UnstyledButton from '@/components/UnstyledButton/UnstyledButton';
+import CartSidebar from '@/components/CartSidebar';
 
 import { QUERIES } from '@/constants/styles.constants';
 import { Item } from '@/constants/pages-data.contants';
@@ -38,20 +35,16 @@ function StickyHeader({ menuItems }: { menuItems: Item[] }) {
           ))}
         </Nav>
         <DesktopActions>
-          <UnstyledButton>
-            <ShoppingBag size={24} />
-            <VisuallyHidden>Open Card</VisuallyHidden>
-          </UnstyledButton>
-          <ComponentOnMount>
-            <AuthButton mode='desktop' />
-          </ComponentOnMount>
+          <CartSidebar />
+          <React.Suspense>
+            <ComponentOnMount>
+              <AuthButton mode='desktop' />
+            </ComponentOnMount>
+          </React.Suspense>
         </DesktopActions>
         <MobileActions>
+          <CartSidebar />
           <MobileMenu initialMenuItems={menuItems} />
-          <UnstyledButton>
-            <ShoppingBag size={24} />
-            <VisuallyHidden>Open Card</VisuallyHidden>
-          </UnstyledButton>
         </MobileActions>
       </Wrapper>
     </HeaderSticky>

@@ -10,14 +10,14 @@ export const MENU_ITEMS: Item[] = [
   },
   {
     title: 'About Us',
-    slug: '/about',
+    slug: '/#',
   },
   {
     title: 'Contacts',
-    slug: '/contacts',
+    slug: '/#',
   },
   {
     title: 'FAQ',
-    slug: '/faq',
+    slug: '/#',
   },
 ];

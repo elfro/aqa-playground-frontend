@@ -18,6 +18,7 @@ const LinkWrapper = styled(Link)`
 `;
 
 const Title = styled.h1`
+  color: inherit;
   font-size: 1.5rem;
   font-weight: ${WEIGHTS.bold};
 `;

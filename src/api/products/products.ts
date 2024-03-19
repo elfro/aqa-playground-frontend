@@ -10,9 +10,6 @@ export const getProducts = React.cache(async () => {
   try {
     const response = await fetch(url, {
       method: 'GET',
-      headers: {
-        Authorization: `Bearer ${cookies().get('accessToken')?.value}`,
-      },
     });
 
     if (response.ok) {
@@ -53,3 +50,7 @@ export const getProductCategories = React.cache(async () => {
     console.error('Failed to fetch product categories', error);
   }
 });
+
+async function getAuthToken() {
+  return cookies().get('accessToken')?.value;
+}

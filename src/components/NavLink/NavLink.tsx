@@ -35,8 +35,10 @@ const Link = styled.a<NavLinkProps>`
     outline-offset: 5px;
   }
 
-  &:hover {
-    border-bottom-color: var(--color-primary);
+  @media (hover: hover) and (prefers-reduced-motion: no-preference) {
+    &:hover {
+      border-bottom-color: var(--color-primary);
+    }
   }
 `;
 

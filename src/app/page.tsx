@@ -8,7 +8,6 @@ import MainSection from '@/components/MainSection';
 import MaxWidthWrapper from '@/components/MaxWidthWrapper';
 
 import { QUERIES } from '@/constants/styles.constants';
-
 // ToDo: add metadata
 function Home() {
   return (

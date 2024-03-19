@@ -6,17 +6,22 @@ import { X as Close } from 'react-feather';
 
 import UnstyledButton from '@/components/UnstyledButton/UnstyledButton';
 import VisuallyHidden from '@/components/VisuallyHidden';
+import { QUERIES } from '@/constants/styles.constants';
 
 interface ModalSidebarRightProps {
   isOpen: boolean;
   onOpenChange: React.Dispatch<React.SetStateAction<boolean>>;
   triggerElement: React.ReactNode;
+  mode: 'full' | 'right-side';
   children: React.ReactNode;
+  ariaLabel?: string;
 }
 function ModalSidebarRight({
   isOpen,
   onOpenChange,
   triggerElement,
+  mode,
+  ariaLabel,
   children,
 }: ModalSidebarRightProps) {
   return (
@@ -26,9 +31,14 @@ function ModalSidebarRight({
         <Wrapper>
           <Overlay />
         </Wrapper>
-        <Content aria-label='Menu'>
+        <Content
+          aria-label={ariaLabel}
+          style={{
+            '--width': mode === 'full' ? '100%' : 'calc(60% + var(--overfill)',
+          }}
+        >
           <Dialog.Close asChild>
-            <CloseButton>
+            <CloseButton title='Close'>
               <Close size={24} />
               <VisuallyHidden>Close Sidebar</VisuallyHidden>
             </CloseButton>
@@ -80,16 +90,22 @@ const Overlay = styled.div`
 `;
 
 const Content = styled(Dialog.Content)`
+  --max-width: 800px;
   --overfill: 16px;
   position: fixed;
-  left: calc(40% - var(--overfill));
+  right: var(--overfill);
   top: 0;
-  width: calc(60% + var(--overfill));
+  width: var(--width);
+  max-width: var(--max-width);
   height: 100%;
   padding: 32px;
   margin-right: calc(var(--overfill) * -1);
   background-color: var(--color-white);
   overflow: auto;
+
+  ${QUERIES.tabletAndLess} {
+    --max-width: 500px;
+  }
   @media (prefers-reduced-motion: no-preference) {
     animation: ${slideIn} 500ms both cubic-bezier(0, 0.6, 0.99, 1.08) 200ms;
   }

@@ -9,7 +9,7 @@ function HamburgerMenuButton(
   forwardRef: React.Ref<HTMLButtonElement>
 ) {
   return (
-    <UnstyledButton {...props} ref={forwardRef}>
+    <UnstyledButton {...props} ref={forwardRef} title='Open menu'>
       <HamburgerMenuIcon size={24} />
       <VisuallyHidden>Open Menu</VisuallyHidden>
     </UnstyledButton>

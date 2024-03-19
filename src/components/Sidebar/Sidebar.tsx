@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import Categories from '@/app/categories-list';
+import Categories from '@/app/products/categories-list';
 import Spinner from '@/components/Spinner';
 
 function Sidebar() {

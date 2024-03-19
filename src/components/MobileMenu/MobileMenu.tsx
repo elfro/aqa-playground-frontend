@@ -54,7 +54,7 @@ function MobileMenu({ initialMenuItems }: { initialMenuItems: Item[] }) {
       const nextCurrentItems = prevState.prevItems;
 
       if (!nextCurrentItems) {
-        return prevState;
+        return { currentItems: prevState.currentItems, prevItems: null };
       }
 
       return { currentItems: nextCurrentItems, prevItems: null };
@@ -66,12 +66,14 @@ function MobileMenu({ initialMenuItems }: { initialMenuItems: Item[] }) {
       isOpen={showMobileMenu}
       onOpenChange={handleOnOpenChange}
       triggerElement={<HamburgerMenuButton />}
+      ariaLabel='Menu'
+      mode='right-side'
     >
       <InnerWrapper>
         <Side />
         <Menu>
           {menuItems.prevItems && (
-            <UnstyledButton onClick={handleNavigateBack}>
+            <UnstyledButton onClick={handleNavigateBack} title='Go Back'>
               <ArrowLeft size={24} />
               <VisuallyHidden>Go Back</VisuallyHidden>
             </UnstyledButton>
@@ -99,9 +101,9 @@ function MobileMenu({ initialMenuItems }: { initialMenuItems: Item[] }) {
         </Menu>
 
         <Footer>
-          <FooterItem href='/terms'>Terms and Conditions</FooterItem>
-          <FooterItem href='/privacy'>Privacy Policy</FooterItem>
-          <FooterItem href='/contact'>Contact Us</FooterItem>
+          <FooterItem href='/#'>Terms and Conditions</FooterItem>
+          <FooterItem href='/#'>Privacy Policy</FooterItem>
+          <FooterItem href='/#'>Contact Us</FooterItem>
           <ComponentOnMount>
             <FooterLastItemWrapper>
               <FooterAuthItem mode='mobile' />
