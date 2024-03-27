@@ -45,7 +45,6 @@ const CartItemsContext = React.createContext<CartItemsState | null>(null);
 // @ts-ignore
 const CartActionsContext = React.createContext<React.Dispatch<ItemAction>>();
 function CartProvider({ children }: { children: React.ReactNode }) {
-  // @ts-ignore
   const [items, dispatch] = React.useReducer(
     cartItemsReducer,
     [],

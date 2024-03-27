@@ -1,41 +1,23 @@
 'use server';
 
-import { signIn } from '@/api/auth/auth';
-import { cookies } from 'next/headers';
-import { revalidatePath } from 'next/cache';
+import { signIn } from '@/auth';
+import { AuthError } from 'next-auth';
 
-export async function authenticate(_currentState: unknown, formData: FormData) {
-  let json;
+export async function authenticate(
+  prevState: string | undefined,
+  formData: FormData
+) {
   try {
-    json = await signIn(formData);
+    await signIn('credentials', formData);
   } catch (error) {
-    return { error: error.message };
+    if (error instanceof AuthError) {
+      switch (error.type) {
+        case 'CredentialsSignin':
+          return 'Invalid credentials.';
+        default:
+          return 'Something went wrong.';
+      }
+    }
+    throw error;
   }
-
-  const { username, accessToken, refreshToken } = json;
-  await setUserCookies({ username, accessToken, refreshToken });
-
-  revalidatePath('/');
-
-  return json;
-}
-
-interface UserData {
-  username: string;
-  accessToken: string;
-  refreshToken: string;
-}
-export async function setUserCookies(userData: UserData) {
-  const cookieOptions: { [key: string]: number | boolean | string } = {
-    expires: Date.now() + 60 * 60 * 1000,
-    httpOnly: false,
-    secure: false,
-    sameSite: 'lax',
-  };
-
-  const refreshTokenOptions = { ...cookieOptions, httpOnly: true };
-
-  cookies().set('username', userData.username, cookieOptions);
-  cookies().set('accessToken', userData.accessToken, cookieOptions);
-  cookies().set('refreshToken', userData.refreshToken, refreshTokenOptions);
 }

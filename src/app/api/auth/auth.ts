@@ -1,8 +1,8 @@
-export const signIn = async (data: FormData) => {
+export const login = async (username: string, password: string) => {
   const url = `${process.env.BE_URL}/auth/login`;
   const body = JSON.stringify({
-    username: data.get('email'),
-    password: data.get('password'),
+    username,
+    password,
   });
 
   try {

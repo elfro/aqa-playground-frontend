@@ -1,74 +1,50 @@
+'use client';
+
 import * as React from 'react';
-import { useRouter } from 'next/navigation';
-import {
-  USER_ACTION,
-  useUser,
-  useUserActions,
-} from '@/components/UserProvider';
-import Spinner from '@/components/Spinner';
-import UnstyledButton from '@/components/UnstyledButton/UnstyledButton';
+import { useSession, signIn, signOut } from 'next-auth/react';
+
 import { LogIn, LogOut } from 'react-feather';
+import UnstyledButton from '@/components/UnstyledButton/UnstyledButton';
 import VisuallyHidden from '@/components/VisuallyHidden';
 
 interface AuthButtonProps {
   mode: 'desktop' | 'mobile';
 }
 function AuthButton({ mode, ...delegated }: AuthButtonProps) {
-  const router = useRouter();
-  const user = useUser();
-  const userDispatch = useUserActions();
-
-  const shouldSignIn = !user?.isLoggedIn;
+  const session = useSession();
+  const isLoggedIn =
+    session.status === 'authenticated' &&
+    session.data.user?.username !== undefined;
   const isDesktop = mode === 'desktop';
 
-  function handleSignOut(
-    e: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>
-  ) {
+  function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    if (userDispatch) {
-      userDispatch({
-        type: USER_ACTION.RESET,
-      });
+
+    if (session.status !== 'authenticated') {
+      signIn();
+      return;
     }
-    router.push('/');
+
+    signOut({ callbackUrl: '/', redirect: true });
   }
 
-  function handleSignIn(e: React.MouseEvent<HTMLButtonElement>) {
-    router.push('/signin');
-  }
-
-  if (!shouldSignIn) {
-    return (
-      <>
-        {isDesktop ? (
-          <React.Suspense fallback={<Spinner />}>
-            <UnstyledButton onClick={handleSignOut}>
-              <LogOut size={24} />
-              <VisuallyHidden>Sign out</VisuallyHidden>
-            </UnstyledButton>
-          </React.Suspense>
-        ) : (
-          <a href='/' onClick={handleSignOut} {...delegated}>
-            Sign Out
-          </a>
-        )}
-      </>
-    );
-  }
+  const Icon = isLoggedIn ? LogOut : LogIn;
 
   return (
-    <>
+    <form onSubmit={onSubmit}>
       {isDesktop ? (
-        <UnstyledButton onClick={handleSignIn}>
-          <LogIn size={24} />
-          <VisuallyHidden>Sign in</VisuallyHidden>
+        <UnstyledButton>
+          <Icon size={24} />
+          <VisuallyHidden>
+            {!isLoggedIn ? 'Sign in' : 'Sign out'}
+          </VisuallyHidden>
         </UnstyledButton>
       ) : (
-        <a href='/signin' {...delegated}>
-          Sign In
-        </a>
+        <UnstyledButton {...delegated}>
+          {!isLoggedIn ? 'Sign in' : 'Sign out'}
+        </UnstyledButton>
       )}
-    </>
+    </form>
   );
 }
 

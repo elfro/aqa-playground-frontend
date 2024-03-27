@@ -1,42 +1,39 @@
 'use client';
 
 import * as React from 'react';
-import { useFormState, useFormStatus } from 'react-dom';
-import { useRouter } from 'next/navigation';
 import styled from 'styled-components';
 
 import Button from '@/components/Button';
 import MainSection from '@/components/MainSection';
 
+import { signIn } from 'next-auth/react';
+
 import { authenticate } from '@/lib/actions';
+import { useFormState, useFormStatus } from 'react-dom';
 
 function SignInPage() {
-  const [state, dispatch] = useFormState(authenticate, undefined);
+  const [errorMessage, dispatch] = useFormState(authenticate, undefined);
+
   const [username, setUsername] = React.useState('');
   const [password, setPassword] = React.useState('');
-  const router = useRouter();
 
-  const handleUsernameChange = (event: React.ChangeEvent<HTMLInputElement>) =>
+  function handleUsernameChange(event: React.ChangeEvent<HTMLInputElement>) {
     setUsername(event.target.value);
-  const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) =>
+  }
+  function handlePasswordChange(event: React.ChangeEvent<HTMLInputElement>) {
     setPassword(event.target.value);
-
-  React.useEffect(() => {
-    if (state && state.accessToken !== undefined) {
-      router.push('/');
-    }
-  });
+  }
 
   return (
     <MainSectionWrapper>
       <Wrapper>
         <Title>Sign in</Title>
         <Form action={dispatch}>
-          <EmailInput htmlFor='email'>
+          <EmailInput htmlFor='username'>
             Username
             <input
-              id='email'
-              name='email'
+              id='username'
+              name='username'
               type='text'
               value={username}
               onChange={handleUsernameChange}
@@ -47,24 +44,25 @@ function SignInPage() {
           <PasswordInput htmlFor='password'>
             Password
             <input
-              type='text'
+              type='password'
               id='password'
               name='password'
               value={password}
               onChange={handlePasswordChange}
               placeholder='Enter password...'
               required={true}
+              minLength={6}
             />
           </PasswordInput>
-          <SubmitButton />
+          <LoginButtonUI />
         </Form>
-        {state?.error && <div>{state.error}</div>}
+        {errorMessage && <div>{errorMessage}</div>}
       </Wrapper>
     </MainSectionWrapper>
   );
 }
 
-function SubmitButton() {
+function LoginButtonUI() {
   const { pending } = useFormStatus();
 
   return (

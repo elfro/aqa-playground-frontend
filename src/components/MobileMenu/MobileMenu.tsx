@@ -29,11 +29,9 @@ function MobileMenu({ initialMenuItems }: { initialMenuItems: Item[] }) {
 
   function handleOnOpenChange() {
     if (!showMobileMenu) {
-      console.log('Opening mobile menu');
       setShowMobileMenu(true);
     }
     if (showMobileMenu) {
-      console.log('Closing mobile menu');
       setShowMobileMenu(false);
     }
   }
@@ -104,11 +102,9 @@ function MobileMenu({ initialMenuItems }: { initialMenuItems: Item[] }) {
           <FooterItem href='/#'>Terms and Conditions</FooterItem>
           <FooterItem href='/#'>Privacy Policy</FooterItem>
           <FooterItem href='/#'>Contact Us</FooterItem>
-          <ComponentOnMount>
-            <FooterLastItemWrapper>
-              <FooterAuthItem mode='mobile' />
-            </FooterLastItemWrapper>
-          </ComponentOnMount>
+          <FooterLastItemWrapper>
+            <FooterAuthItem mode='mobile' />
+          </FooterLastItemWrapper>
         </Footer>
       </InnerWrapper>
     </ModalSidebarRight>
@@ -164,11 +160,10 @@ const FooterAuthItem = styled(AuthButton)`
   font-size: 0.875rem;
   font-weight: ${WEIGHTS.normal};
   color: var(--color-gray-700);
-  text-decoration: none;
   width: max-content;
 
   &:hover {
-    text-decoration: revert;
+    text-decoration: underline;
   }
 `;
 

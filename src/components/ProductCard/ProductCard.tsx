@@ -30,7 +30,7 @@ function ProductCard({ product }: { product: IProduct }) {
   const itemActions = useCartItemActions();
 
   return (
-    <LinkWrapper href='#'>
+    <LinkWrapper href={`/products/${product.id}`}>
       <Card>
         <ImageWrapper>
           <Img

@@ -2,19 +2,23 @@
 
 import * as React from 'react';
 import { usePathname } from 'next/navigation';
+import { useSession } from 'next-auth/react';
 import styled from 'styled-components';
 
 import Logo from '@/components/Logo';
 import NavLink from '@/components/NavLink';
 import AuthButton from '@/components/AuthButton';
 import MobileMenu from '@/components/MobileMenu';
-import ComponentOnMount from '@/components/ComponentOnMount';
-import CartSidebar from '@/components/CartSidebar';
 
+import CartSidebar from '@/components/CartSidebar';
 import { QUERIES } from '@/constants/styles.constants';
 import { Item } from '@/constants/pages-data.contants';
 
 function StickyHeader({ menuItems }: { menuItems: Item[] }) {
+  const session = useSession();
+  const isLoggedIn =
+    session.status === 'authenticated' &&
+    session.data.user?.username !== undefined;
   const currentPathname = usePathname();
 
   return (
@@ -35,12 +39,9 @@ function StickyHeader({ menuItems }: { menuItems: Item[] }) {
           ))}
         </Nav>
         <DesktopActions>
+          {isLoggedIn && <span>Hello, {session.data?.user.username}</span>}
           <CartSidebar />
-          <React.Suspense>
-            <ComponentOnMount>
-              <AuthButton mode='desktop' />
-            </ComponentOnMount>
-          </React.Suspense>
+          <AuthButton mode='desktop' />
         </DesktopActions>
         <MobileActions>
           <CartSidebar />
@@ -84,12 +85,12 @@ const Nav = styled.nav`
 
 const Actions = styled.div`
   display: flex;
-  justify-content: flex-start;
+  justify-content: flex-end;
   gap: 16px;
 `;
 
 const DesktopActions = styled(Actions)`
-  flex-basis: 80px;
+  flex-basis: 200px;
   ${QUERIES.tabletAndLess} {
     display: none;
   }

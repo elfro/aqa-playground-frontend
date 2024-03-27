@@ -1,6 +1,6 @@
 import * as React from 'react';
 import StickyHeader from '@/components/StickyHeader';
-import { getProductCategories } from '@/api/products/products';
+import { getProductCategories } from '@/app/api/products/products';
 import { MENU_ITEMS } from '@/constants/pages-data.contants';
 
 async function Header() {

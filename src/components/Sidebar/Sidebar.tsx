@@ -1,12 +1,22 @@
 import * as React from 'react';
 
-import Categories from '@/app/products/categories-list';
 import Spinner from '@/components/Spinner';
+import CategoriesList from '@/components/CategoriesList';
 
-function Sidebar() {
+import { getProductCategories } from '@/app/api/products/products';
+
+async function Sidebar() {
+  const links = await getProductCategories();
+
+  if (!Array.isArray(links)) {
+    return <div>No categories found</div>;
+  }
+
+  const linksAndAll = [...links, { title: 'All', slug: '/products' }];
+
   return (
     <React.Suspense fallback={<Spinner />}>
-      <Categories />
+      <CategoriesList links={linksAndAll} />
     </React.Suspense>
   );
 }

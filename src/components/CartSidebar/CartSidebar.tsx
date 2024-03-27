@@ -41,11 +41,9 @@ function CartSidebar() {
 
   function handleOnOpenChange() {
     if (!showCart) {
-      console.log('Opening cart');
       setShowCart(true);
     }
     if (showCart) {
-      console.log('Closing cart');
       setShowCart(false);
     }
   }

@@ -1,11 +1,41 @@
-import { NextRequest } from 'next/server';
+import { auth } from '@/auth';
 
-export function middleware(request: NextRequest) {
-  const accessToken = request.cookies.get('accessToken')?.value;
-  const username = request.cookies.get('username')?.value;
+const publicRoutes = ['/'];
+const authRoutes = ['/login', '/register'];
+const authProtectedRouts = ['/profile'];
+const login_redirect_route = '/profile';
+const apiAuthPrefix = '/api/auth';
 
-  if (accessToken && request.nextUrl.pathname.startsWith('/signin')) {
-    console.log({ username });
-    return Response.redirect(new URL('/', request.url));
+export default auth(async (request) => {
+  const { nextUrl } = request;
+  const isLoggedIn = !!request.auth;
+
+  const isApiAuthRoute = nextUrl.pathname.startsWith(apiAuthPrefix);
+  const isPublicRoute = publicRoutes.includes(nextUrl.pathname);
+  const isAuthRoute = authRoutes.includes(nextUrl.pathname);
+  const isAuthProtectedRoute = authProtectedRouts.includes(nextUrl.pathname);
+
+  if (isApiAuthRoute) {
+    return;
   }
-}
+
+  if (isPublicRoute) {
+    return;
+  }
+
+  if (isAuthRoute) {
+    if (isLoggedIn) {
+      return Response.redirect(new URL(login_redirect_route, nextUrl));
+    }
+
+    return;
+  }
+
+  if (isAuthProtectedRoute && !isLoggedIn) {
+    return Response.redirect(new URL('/login', nextUrl));
+  }
+});
+
+export const config = {
+  matcher: ['/((?!api|_next/static|_next/image|.*\\.png$).*)'],
+};

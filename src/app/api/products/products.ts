@@ -30,7 +30,6 @@ export const getProducts = React.cache(async () => {
 });
 
 export const getProductCategories = React.cache(async () => {
-  console.log('getting products list');
   const url = `${process.env.BE_URL}/categories`;
   try {
     const response = await fetch(url, {
@@ -41,7 +40,7 @@ export const getProductCategories = React.cache(async () => {
       const categories: string[] = await response.json();
       return categories.map((category) => ({
         title: category,
-        slug: `/products/${slugify(category)}`,
+        slug: `/${slugify(category)}`,
       }));
     }
 
@@ -54,3 +53,25 @@ export const getProductCategories = React.cache(async () => {
 async function getAuthToken() {
   return cookies().get('accessToken')?.value;
 }
+
+export const getProductById = React.cache(async (id: number) => {
+  const url = `${process.env.BE_URL}/products/${id}`;
+
+  try {
+    const response = await fetch(url, { method: 'GET' });
+
+    if (response.ok) {
+      const data = await response.json();
+
+      return {
+        ...data,
+        category: {
+          title: data.category,
+          slug: slugify(data.category.toString()),
+        },
+      };
+    }
+  } catch (error) {
+    console.error(`Failed to fetch product by ${id}`, error);
+  }
+});

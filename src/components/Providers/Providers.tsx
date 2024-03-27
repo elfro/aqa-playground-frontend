@@ -1,15 +1,15 @@
 import * as React from 'react';
 
+import { SessionProvider } from 'next-auth/react';
 import StyledComponentsRegistry from '@/lib/registry';
-import UserProvider from '@/components/UserProvider';
 import CartProvider from '@/components/CartProvider';
 
-function Providers(props: React.PropsWithChildren) {
+async function Providers(props: React.PropsWithChildren) {
   return (
     <StyledComponentsRegistry>
-      <UserProvider>
+      <SessionProvider>
         <CartProvider>{props.children}</CartProvider>
-      </UserProvider>
+      </SessionProvider>
     </StyledComponentsRegistry>
   );
 }
