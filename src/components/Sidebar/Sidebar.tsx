@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import Spinner from '@/components/Spinner';
+import Spinner from '@/components/ui/Spinner';
 import CategoriesList from '@/components/CategoriesList';
 
 import { getProductCategories } from '@/app/api/products/products';

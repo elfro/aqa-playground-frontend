@@ -7,18 +7,18 @@ import {
   useCartItemActions,
   useCartItems,
 } from '@/components/CartProvider';
-import ModalSidebarRight from '@/components/ModalSidebarRight';
-import UnstyledButton from '@/components/UnstyledButton/UnstyledButton';
-import { MinusSquare, PlusSquare, Trash } from 'react-feather';
-import VisuallyHidden from '@/components/VisuallyHidden';
-import Spinner from '@/components/Spinner';
+import ModalSidebar from '@/components/ui/ModalSidebar';
+import UnstyledButton from '@/components/ui/UnstyledButton/UnstyledButton';
+import Spinner from '@/components/ui/Spinner';
 import styled from 'styled-components';
 import CartMenuButton from '@/components/CartMenuButton';
 import Image from 'next/image';
-import Button from '@/components/Button';
+import Button from '@/components/ui/Button';
 import Link from 'next/link';
 import EmptyCart from '@/components/EmptyCart';
 import { QUERIES, WEIGHTS } from '@/constants/styles.constants';
+import IconButton from '@/components/ui/IconButton';
+import { DialogClose } from '@radix-ui/react-dialog';
 
 function CartSidebar() {
   const [showCart, setShowCart] = React.useState(false);
@@ -70,7 +70,7 @@ function CartSidebar() {
   }
 
   return (
-    <ModalSidebarRight
+    <ModalSidebar
       isOpen={showCart}
       onOpenChange={handleOnOpenChange}
       triggerElement={<CartMenuButton />}
@@ -91,34 +91,34 @@ function CartSidebar() {
                     height={100}
                     alt=''
                   />
-                  <ProductLink href={`/products/${item.product.id}`}>
-                    {item.product.title}
-                  </ProductLink>
+                  <DialogClose asChild>
+                    <ProductLink href={`/products/${item.product.id}`}>
+                      {item.product.title}
+                    </ProductLink>
+                  </DialogClose>
                   <Price>${item.product.price}</Price>
                   <Quantity>
                     <ActionButton
+                      iconId='minus'
+                      title='Decrease Quantity'
+                      thickness='thin'
                       onClick={() => handleDecreaseItemQuantity(item)}
                       disabled={item.quantity === 1}
-                    >
-                      <MinusSquare size={24} strokeWidth={1} />
-                      <VisuallyHidden>Decrease Quantity</VisuallyHidden>
-                    </ActionButton>
+                    />
                     <span>{item.quantity}</span>
                     <ActionButton
+                      iconId='plus'
+                      title='Increase Quantity'
+                      thickness='thin'
                       onClick={() => handleIncreaseItemQuantity(item)}
                       disabled={item.product.quantity <= item.quantity}
-                    >
-                      <PlusSquare size={24} strokeWidth={1} />
-                      <VisuallyHidden>Increase Quantity</VisuallyHidden>
-                    </ActionButton>
+                    />
                   </Quantity>
                   <RemoveItemWrapper
-                    onClick={() => handleDeleteItem(item)}
+                    iconId='trash'
                     title='Remove'
-                  >
-                    <Trash size={24} />
-                    <VisuallyHidden>Remove</VisuallyHidden>
-                  </RemoveItemWrapper>
+                    onClick={() => handleDeleteItem(item)}
+                  />
                 </ItemsTableRow>
               ))}
               <DeleteAllButton
@@ -152,7 +152,7 @@ function CartSidebar() {
           </InnerWrapper>
         )}
       </React.Suspense>
-    </ModalSidebarRight>
+    </ModalSidebar>
   );
 }
 
@@ -224,7 +224,7 @@ const Quantity = styled.div`
   }
 `;
 
-const ActionButton = styled(UnstyledButton)`
+const ActionButton = styled(IconButton)`
   @media (hover: hover) and (prefers-reduced-motion: no-preference) {
     opacity: 0.7;
 

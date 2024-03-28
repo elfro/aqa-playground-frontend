@@ -3,7 +3,7 @@
 import * as React from 'react';
 import styled from 'styled-components';
 
-import Hero from '@/components/Hero';
+import Hero from '@/components/ui/Hero';
 import MainSection from '@/components/MainSection';
 import MaxWidthWrapper from '@/components/MaxWidthWrapper';
 
@@ -12,7 +12,7 @@ import { QUERIES } from '@/constants/styles.constants';
 function Home() {
   return (
     <MainSection>
-      <Hero>
+      <Hero backgroundImageSrc='/hero.svg'>
         <Title>E2E Playground</Title>
       </Hero>
       <MaxWidthWrapper></MaxWidthWrapper>

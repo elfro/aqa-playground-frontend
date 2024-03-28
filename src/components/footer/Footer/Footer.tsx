@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import FooterNav from '@/components/FooterNav';
+import FooterNav from '@/components/footer/FooterNav';
 
 import { getProductCategories } from '@/app/api/products/products';
 

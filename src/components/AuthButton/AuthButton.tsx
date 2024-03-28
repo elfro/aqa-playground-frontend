@@ -3,9 +3,8 @@
 import * as React from 'react';
 import { useSession, signIn, signOut } from 'next-auth/react';
 
-import { LogIn, LogOut } from 'react-feather';
-import UnstyledButton from '@/components/UnstyledButton/UnstyledButton';
-import VisuallyHidden from '@/components/VisuallyHidden';
+import UnstyledButton from '@/components/ui/UnstyledButton/UnstyledButton';
+import IconButton from '@/components/ui/IconButton';
 
 interface AuthButtonProps {
   mode: 'desktop' | 'mobile';
@@ -28,20 +27,16 @@ function AuthButton({ mode, ...delegated }: AuthButtonProps) {
     signOut({ callbackUrl: '/', redirect: true });
   }
 
-  const Icon = isLoggedIn ? LogOut : LogIn;
+  const iconId = isLoggedIn ? 'logout' : 'login';
+  const title = isLoggedIn ? 'Sign out' : 'Sign in';
 
   return (
     <form onSubmit={onSubmit}>
       {isDesktop ? (
-        <UnstyledButton>
-          <Icon size={24} />
-          <VisuallyHidden>
-            {!isLoggedIn ? 'Sign in' : 'Sign out'}
-          </VisuallyHidden>
-        </UnstyledButton>
+        <IconButton iconId={iconId} title={title} />
       ) : (
         <UnstyledButton {...delegated}>
-          {!isLoggedIn ? 'Sign in' : 'Sign out'}
+          {isLoggedIn ? 'Sign out' : 'Sign in'}
         </UnstyledButton>
       )}
     </form>

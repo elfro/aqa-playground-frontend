@@ -4,7 +4,7 @@ import * as React from 'react';
 import Link from 'next/link';
 import styled from 'styled-components';
 
-import Button from '@/components/Button';
+import Button from '@/components/ui/Button';
 
 import { WEIGHTS } from '@/constants/styles.constants';
 import {

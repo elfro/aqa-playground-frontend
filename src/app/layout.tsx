@@ -6,9 +6,9 @@ import { Inter } from 'next/font/google';
 import GlobalStyles from '@/components/GlobalStyles/GlobalStyles';
 import Providers from '@/components/Providers/Providers';
 import MainPageWrapper from '@/components/MainPageWrapper';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
-import Spacer from '@/components/Spacer';
+import Header from '@/components/header/Header';
+import Footer from '@/components/footer/Footer';
+import Spacer from '@/components/ui/Spacer';
 
 const inter = Inter({ subsets: ['latin'] });
 

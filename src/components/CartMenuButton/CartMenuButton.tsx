@@ -2,13 +2,10 @@ import * as React from 'react';
 
 import styled from 'styled-components';
 
-import { ShoppingBag } from 'react-feather';
-
 import { useCartItems } from '@/components/CartProvider';
-import VisuallyHidden from '@/components/VisuallyHidden';
-import UnstyledButton from '@/components/UnstyledButton/UnstyledButton';
-import { UnstyledButtonProps } from '@/components/UnstyledButton';
+import { UnstyledButtonProps } from '@/components/ui/UnstyledButton';
 import ComponentOnMount from '@/components/ComponentOnMount';
+import IconButton from '@/components/ui/IconButton';
 
 function CartMenuButton(
   props: UnstyledButtonProps,
@@ -19,8 +16,7 @@ function CartMenuButton(
     items?.reduce((total, nextItem) => total + nextItem.quantity, 0) || null;
 
   return (
-    <Wrapper {...props} ref={innerRef}>
-      <ShoppingBag size={24} />
+    <Wrapper iconId='shopping-bag' title='Open Card' ref={innerRef} {...props}>
       <React.Suspense>
         <ComponentOnMount>
           {totalAddedProduct && (
@@ -28,12 +24,11 @@ function CartMenuButton(
           )}
         </ComponentOnMount>
       </React.Suspense>
-      <VisuallyHidden>Open Card123</VisuallyHidden>
     </Wrapper>
   );
 }
 
-const Wrapper = styled(UnstyledButton)`
+const Wrapper = styled(IconButton)`
   position: relative;
 `;
 const TotalProducts = styled.span`

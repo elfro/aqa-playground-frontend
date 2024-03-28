@@ -2,11 +2,9 @@ import * as React from 'react';
 import styled, { keyframes } from 'styled-components';
 
 import * as Dialog from '@radix-ui/react-dialog';
-import { X as Close } from 'react-feather';
 
-import UnstyledButton from '@/components/UnstyledButton/UnstyledButton';
-import VisuallyHidden from '@/components/VisuallyHidden';
 import { QUERIES } from '@/constants/styles.constants';
+import IconButton from '@/components/ui/IconButton';
 
 interface ModalSidebarRightProps {
   isOpen: boolean;
@@ -16,7 +14,7 @@ interface ModalSidebarRightProps {
   children: React.ReactNode;
   ariaLabel?: string;
 }
-function ModalSidebarRight({
+function ModalSidebar({
   isOpen,
   onOpenChange,
   triggerElement,
@@ -38,10 +36,7 @@ function ModalSidebarRight({
           }}
         >
           <Dialog.Close asChild>
-            <CloseButton title='Close'>
-              <Close size={24} />
-              <VisuallyHidden>Close Sidebar</VisuallyHidden>
-            </CloseButton>
+            <CloseButton iconId='close' title='Close Sidebar' />
           </Dialog.Close>
           {children}
         </Content>
@@ -111,11 +106,11 @@ const Content = styled(Dialog.Content)`
   }
 `;
 
-const CloseButton = styled(UnstyledButton)`
+const CloseButton = styled(IconButton)`
   position: fixed;
   top: 10px;
   right: calc(var(--overfill) / 2);
   padding: 12px;
 `;
 
-export default ModalSidebarRight;
+export default ModalSidebar;

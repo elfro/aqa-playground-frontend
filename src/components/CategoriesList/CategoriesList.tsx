@@ -3,8 +3,10 @@
 import * as React from 'react';
 import styled from 'styled-components';
 
-import { QUERIES, WEIGHTS } from '@/constants/styles.constants';
 import { usePathname } from 'next/navigation';
+import Link from 'next/link';
+
+import { QUERIES, WEIGHTS } from '@/constants/styles.constants';
 
 function CategoriesList({
   links,
@@ -52,7 +54,7 @@ const StickySidebar = styled.div`
   top: var(--header-height);
 `;
 
-const SidebarLink = styled.a<{ $active: boolean }>`
+const SidebarLink = styled(Link)<{ $active: boolean }>`
   display: block;
   text-decoration: none;
   text-transform: capitalize;

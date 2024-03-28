@@ -3,10 +3,8 @@
 import * as React from 'react';
 import styled from 'styled-components';
 
-import Button from '@/components/Button';
+import Button from '@/components/ui/Button';
 import MainSection from '@/components/MainSection';
-
-import { signIn } from 'next-auth/react';
 
 import { authenticate } from '@/lib/actions';
 import { useFormState, useFormStatus } from 'react-dom';

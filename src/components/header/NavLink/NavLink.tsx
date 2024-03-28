@@ -4,6 +4,7 @@ import * as React from 'react';
 import styled from 'styled-components';
 
 import { WEIGHTS } from '@/constants/styles.constants';
+import Link from 'next/link';
 
 interface NavLinkProps extends React.ComponentPropsWithoutRef<'a'> {
   href: string;
@@ -12,14 +13,14 @@ interface NavLinkProps extends React.ComponentPropsWithoutRef<'a'> {
 }
 function NavLink({ href, $active, children }: NavLinkProps) {
   return (
-    <Link href={href} $active={$active}>
+    <LinkWrapper href={href} $active={$active}>
       <Text>{children}</Text>
       <SubText aria-hidden={true}>{children}</SubText>
-    </Link>
+    </LinkWrapper>
   );
 }
 
-const Link = styled.a<NavLinkProps>`
+const LinkWrapper = styled(Link)<NavLinkProps>`
   position: relative;
   display: block;
   font-size: 1.125rem;
@@ -52,7 +53,7 @@ const Text = styled.span`
   transform: translateX(var(--translate-from));
 
   @media (hover: hover) and (prefers-reduced-motion: no-preference) {
-    ${Link}:hover & {
+    ${LinkWrapper}:hover & {
       transform: translateX(var(--translate-to));
       transition: 250ms ease;
     }

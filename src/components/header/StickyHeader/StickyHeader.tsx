@@ -6,9 +6,9 @@ import { useSession } from 'next-auth/react';
 import styled from 'styled-components';
 
 import Logo from '@/components/Logo';
-import NavLink from '@/components/NavLink';
+import NavLink from '@/components/header/NavLink';
 import AuthButton from '@/components/AuthButton';
-import MobileMenu from '@/components/MobileMenu';
+import MobileMenu from '@/components/mobile-menu/MobileMenu';
 
 import CartSidebar from '@/components/CartSidebar';
 import { QUERIES } from '@/constants/styles.constants';
