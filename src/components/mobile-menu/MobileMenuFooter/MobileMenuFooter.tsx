@@ -3,15 +3,16 @@ import styled from 'styled-components';
 import Link from 'next/link';
 import { WEIGHTS } from '@/constants/styles.constants';
 import AuthButton from '@/components/AuthButton';
+import { Session } from 'next-auth';
 
-function MobileMenuFooter() {
+function MobileMenuFooter({ session }: { session: Session | null }) {
   return (
     <Footer>
       <FooterItem href='/#'>Terms and Conditions</FooterItem>
       <FooterItem href='/#'>Privacy Policy</FooterItem>
       <FooterItem href='/#'>Contact Us</FooterItem>
       <FooterLastItemWrapper>
-        <FooterAuthItem mode='mobile' />
+        <FooterAuthItem mode='mobile' session={session} />
       </FooterLastItemWrapper>
     </Footer>
   );

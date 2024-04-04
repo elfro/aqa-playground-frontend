@@ -93,7 +93,7 @@ const Content = styled(Dialog.Content)`
   width: var(--width);
   max-width: var(--max-width);
   height: 100%;
-  padding: 32px;
+  padding: var(--modal-padding);
   margin-right: calc(var(--overfill) * -1);
   background-color: var(--color-white);
   overflow: auto;

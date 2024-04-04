@@ -1,7 +1,9 @@
-import NextAuth from 'next-auth';
-import { authConfig } from './auth.config';
+import NextAuth, { AuthError } from 'next-auth';
 import Credentials from 'next-auth/providers/credentials';
+import { CredentialsSignin } from '@auth/core/errors';
 import { z } from 'zod';
+
+import { authConfig } from './auth.config';
 import { login } from '@/app/api/auth/auth';
 
 type LoginResponse = {
@@ -21,25 +23,28 @@ export const {
     Credentials({
       async authorize(credentials, req) {
         const parsedCredentials = z
-          .object({ username: z.string().min(1), password: z.string().min(6) })
+          .object({ username: z.string().min(1), password: z.string().min(8) })
           .safeParse(credentials);
 
         if (!parsedCredentials.success) {
-          console.log('Invalid credentials');
           return null;
         }
 
         const { username, password } = parsedCredentials.data;
-        const user: LoginResponse = await login(
-          username as string,
-          password as string
-        );
+        try {
+          const user: LoginResponse = await login(
+            username as string,
+            password as string
+          );
 
-        if (!user) {
-          throw new Error('Login failed');
+          if (!user) {
+            throw new AuthError('Login failed');
+          }
+
+          return user;
+        } catch (e) {
+          throw new CredentialsSignin(e.message);
         }
-
-        return user;
       },
     }),
   ],

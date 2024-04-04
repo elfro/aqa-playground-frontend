@@ -9,8 +9,15 @@ import ModalSidebar from '@/components/ui/ModalSidebar';
 import MobileMenuItemButton from '@/components/mobile-menu/MobileMenuItemButton';
 import MobileMenuItemLink from '@/components/mobile-menu/MobileMenuItemLink';
 import MobileMenuFooter from '@/components/mobile-menu/MobileMenuFooter';
+import { Session } from 'next-auth';
 
-function MobileMenu({ initialMenuItems }: { initialMenuItems: Item[] }) {
+function MobileMenu({
+  initialMenuItems,
+  session,
+}: {
+  initialMenuItems: Item[];
+  session: Session | null;
+}) {
   const menuItemsInitialState = {
     currentItems: initialMenuItems,
     prevItems: null,
@@ -92,6 +99,7 @@ function MobileMenu({ initialMenuItems }: { initialMenuItems: Item[] }) {
                 key={key}
                 href={item.slug}
                 $active={currentPathname.endsWith(item.slug)}
+                onClick={handleOnOpenChange}
               >
                 {item.title}
               </MobileMenuItemLink>
@@ -99,7 +107,7 @@ function MobileMenu({ initialMenuItems }: { initialMenuItems: Item[] }) {
           })}
         </Menu>
 
-        <MobileMenuFooter />
+        <MobileMenuFooter session={session} />
       </InnerWrapper>
     </ModalSidebar>
   );

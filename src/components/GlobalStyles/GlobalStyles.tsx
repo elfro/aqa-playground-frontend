@@ -92,12 +92,9 @@ const GlobalStyles = createGlobalStyle`
         --color-overlay-gray: hsl(${COLORS.gray[900]} / 0.8);
 
         --content-width: 110rem;
-        --outer-content-width: 80rem;
         --viewport-padding: 16px;
         --header-height: 5rem;
-        --trimmed-content-width: calc(
-                var(--content-width) - var(--viewport-padding) * 2
-        );
+        --modal-padding: 32px;
 
         background-color: var(--color-gray-100);
     }

@@ -40,7 +40,7 @@ export const getProductCategories = React.cache(async () => {
       const categories: string[] = await response.json();
       return categories.map((category) => ({
         title: category,
-        slug: `/${slugify(category)}`,
+        slug: `/shop/${slugify(category)}`,
       }));
     }
 

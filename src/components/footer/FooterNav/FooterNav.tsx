@@ -5,11 +5,12 @@ import Link from 'next/link';
 import styled from 'styled-components';
 
 import { QUERIES } from '@/constants/styles.constants';
+import { Category } from '@/types/category';
 
 function FooterNav({
-  productLinks,
+  productCategoryLinks,
 }: {
-  productLinks: { title: string; slug: string }[];
+  productCategoryLinks: Category[];
 }) {
   return (
     <Wrapper>
@@ -17,11 +18,11 @@ function FooterNav({
         <NavArea>
           <nav>
             <NavHeading>
-              <NavHeadingLink href='/products'>Products</NavHeadingLink>
+              <NavHeadingLink href='/shop/products'>Products</NavHeadingLink>
             </NavHeading>
             <NavList>
-              {Array.isArray(productLinks) &&
-                productLinks.map((link, index: number) => (
+              {Array.isArray(productCategoryLinks) &&
+                productCategoryLinks.map((link, index: number) => (
                   <li key={index}>
                     <NavLink href={link.slug}>{link.title}</NavLink>
                   </li>
@@ -113,7 +114,7 @@ const NavHeadingLink = styled(Link)`
 const NavList = styled.ul`
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 8px;
   list-style: none;
   padding: 0;
 `;
@@ -122,5 +123,9 @@ const NavLink = styled(Link)`
   color: inherit;
   text-decoration: none;
   text-transform: capitalize;
+
+  &:focus {
+    outline-offset: 5px;
+  }
 `;
 export default FooterNav;

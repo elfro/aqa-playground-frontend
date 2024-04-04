@@ -23,6 +23,10 @@ export default auth(async (request) => {
     return;
   }
 
+  if (nextUrl.pathname.endsWith('/shop')) {
+    return Response.redirect(new URL('/shop/products', nextUrl));
+  }
+
   if (isAuthRoute) {
     if (isLoggedIn) {
       return Response.redirect(new URL(login_redirect_route, nextUrl));

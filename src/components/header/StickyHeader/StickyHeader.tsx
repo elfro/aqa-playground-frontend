@@ -2,23 +2,26 @@
 
 import * as React from 'react';
 import { usePathname } from 'next/navigation';
-import { useSession } from 'next-auth/react';
 import styled from 'styled-components';
 
-import Logo from '@/components/Logo';
+import Logo from '@/components/header/Logo';
 import NavLink from '@/components/header/NavLink';
-import AuthButton from '@/components/AuthButton';
 import MobileMenu from '@/components/mobile-menu/MobileMenu';
+import CartSidebar from '@/components/shopping-cart/CartSidebar';
+import AuthButton from '@/components/AuthButton';
 
-import CartSidebar from '@/components/CartSidebar';
 import { QUERIES } from '@/constants/styles.constants';
-import { Item } from '@/constants/pages-data.contants';
+import { MenuItem } from '@/constants/pages-data.contants';
+import { Session } from 'next-auth';
 
-function StickyHeader({ menuItems }: { menuItems: Item[] }) {
-  const session = useSession();
-  const isLoggedIn =
-    session.status === 'authenticated' &&
-    session.data.user?.username !== undefined;
+function StickyHeader({
+  menuItems,
+  session,
+}: {
+  menuItems: MenuItem[];
+  session: Session | null;
+}) {
+  const isLoggedIn = session && session.user?.username !== undefined;
   const currentPathname = usePathname();
 
   return (
@@ -39,13 +42,13 @@ function StickyHeader({ menuItems }: { menuItems: Item[] }) {
           ))}
         </Nav>
         <DesktopActions>
-          {isLoggedIn && <span>Hello, {session.data?.user.username}</span>}
+          {isLoggedIn && <span>Hello, {session.user?.username}</span>}
           <CartSidebar />
-          <AuthButton mode='desktop' />
+          <AuthButton mode='desktop' session={session} />
         </DesktopActions>
         <MobileActions>
           <CartSidebar />
-          <MobileMenu initialMenuItems={menuItems} />
+          <MobileMenu initialMenuItems={menuItems} session={session} />
         </MobileActions>
       </Wrapper>
     </HeaderSticky>

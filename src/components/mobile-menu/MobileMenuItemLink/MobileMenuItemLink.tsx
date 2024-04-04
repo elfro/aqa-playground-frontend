@@ -1,21 +1,24 @@
 import * as React from 'react';
-import { DialogClose } from '@radix-ui/react-dialog';
 import Link from 'next/link';
 import styled from 'styled-components';
 import { WEIGHTS } from '@/constants/styles.constants';
 
 interface MobileMenuLinkProps {
   href: string;
+  onClick: (e: React.MouseEvent<HTMLAnchorElement>) => void;
   children: string | undefined;
   $active?: boolean;
 }
-function MobileMenuItemLink({ href, $active, children }: MobileMenuLinkProps) {
+function MobileMenuItemLink({
+  href,
+  onClick,
+  $active,
+  children,
+}: MobileMenuLinkProps) {
   return (
-    <DialogClose asChild>
-      <MenuItem href={href} $active={$active}>
-        {children}
-      </MenuItem>
-    </DialogClose>
+    <MenuItem onClick={onClick} href={href} $active={$active}>
+      {children}
+    </MenuItem>
   );
 }
 

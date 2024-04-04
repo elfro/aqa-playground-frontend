@@ -14,7 +14,10 @@ import {
   MinusSquare,
   PlusSquare,
   Trash,
+  EyeOff,
+  Eye,
 } from 'react-feather';
+import styled from 'styled-components';
 
 const icons: { [key: string]: Icon } = {
   login: LogIn,
@@ -26,6 +29,8 @@ const icons: { [key: string]: Icon } = {
   minus: MinusSquare,
   plus: PlusSquare,
   trash: Trash,
+  eye: Eye,
+  'eye-off': EyeOff,
 };
 export interface IconButtonProps extends UnstyledButtonProps {
   iconId: string;
@@ -48,12 +53,31 @@ function IconButton(
   }
 
   return (
-    <UnstyledButton title={title} ref={forwardRef} {...prop}>
+    <Wrapper title={title} ref={forwardRef} {...prop}>
       <IconComponent size={iconSize} strokeWidth={iconStrokeWidth} />
       {children}
       <VisuallyHidden>{title}</VisuallyHidden>
-    </UnstyledButton>
+    </Wrapper>
   );
 }
+
+const Wrapper = styled(UnstyledButton)`
+  color: var(--color-black);
+
+  &[disabled] {
+    opacity: 0.3;
+    cursor: not-allowed;
+  }
+
+  @media (hover: hover) and (prefers-reduced-motion: no-preference) {
+    &:not([disabled]) > svg {
+      opacity: 1;
+
+      &:hover {
+        opacity: 0.7;
+      }
+    }
+  }
+`;
 
 export default React.forwardRef<HTMLButtonElement, IconButtonProps>(IconButton);
