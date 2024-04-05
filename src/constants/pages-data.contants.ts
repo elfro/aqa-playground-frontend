@@ -4,7 +4,7 @@ export const METADATA_PAGE_DESCRIPTION =
 export interface MenuItem {
   title: string;
   slug: string;
-  nextMenuItems?: MenuItem[];
+  subItems?: MenuItem[];
 }
 export const MENU_ITEMS: MenuItem[] = [
   {

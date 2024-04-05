@@ -10,12 +10,13 @@ import MobileMenuItemButton from '@/components/mobile-menu/MobileMenuItemButton'
 import MobileMenuItemLink from '@/components/mobile-menu/MobileMenuItemLink';
 import MobileMenuFooter from '@/components/mobile-menu/MobileMenuFooter';
 import { Session } from 'next-auth';
+import { MenuItem } from '@/constants/pages-data.contants';
 
 function MobileMenu({
   initialMenuItems,
   session,
 }: {
-  initialMenuItems: Item[];
+  initialMenuItems: MenuItem[];
   session: Session | null;
 }) {
   const menuItemsInitialState = {
@@ -24,8 +25,8 @@ function MobileMenu({
   };
   const [showMobileMenu, setShowMobileMenu] = React.useState(false);
   const [menuItems, setMenuItems] = React.useState<{
-    currentItems: Item[];
-    prevItems: Item[] | null;
+    currentItems: MenuItem[];
+    prevItems: MenuItem[] | null;
   }>(menuItemsInitialState);
   const id = React.useId();
   const currentPathname = usePathname();
@@ -39,8 +40,8 @@ function MobileMenu({
       setMenuItems(menuItemsInitialState);
     }
   }
-  function handleNavigateToSubMenu(parentItem: Item) {
-    const actualItems = parentItem.nextMenuItems;
+  function handleNavigateToSubMenu(parentItem: MenuItem) {
+    const actualItems = parentItem.subItems;
     if (actualItems && actualItems.length > 0) {
       setMenuItems((prevState) => {
         return {
@@ -83,7 +84,7 @@ function MobileMenu({
           )}
           {menuItems.currentItems.map((item, index) => {
             const key = `${id}-${index}`;
-            if (item.nextMenuItems) {
+            if (item.subItems) {
               return (
                 <MobileMenuItemButton
                   key={key}
@@ -143,11 +144,5 @@ const Menu = styled.nav`
   gap: 16px;
   margin-bottom: 16px;
 `;
-
-interface Item {
-  title: string;
-  slug: string;
-  nextMenuItems?: Item[];
-}
 
 export default MobileMenu;

@@ -51,7 +51,7 @@ function CartItemsList({ onItemLinkClick }: { onItemLinkClick: () => void }) {
           <ItemsListRow key={item.product.id}>
             <Img src={item.product.image} width={100} height={100} alt='' />
             <ProductLink
-              href={`/products/${item.product.id}`}
+              href={`/shop/products/${item.product.id}`}
               onClick={onItemLinkClick}
             >
               {item.product.title}

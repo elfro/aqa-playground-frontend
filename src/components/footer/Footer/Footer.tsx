@@ -6,7 +6,9 @@ import { getProductCategories } from '@/app/api/products/products';
 import { Category } from '@/types/category';
 
 async function Footer() {
-  const links: Category[] = await getProductCategories();
+  const categories = await getProductCategories();
+  const links: Category[] = 'error' in categories ? [] : categories;
+
   return <FooterNav productCategoryLinks={links} />;
 }
 

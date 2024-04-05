@@ -1,6 +1,10 @@
-import { getProductById } from '@/app/api/products/products';
+import React from 'react';
+import { notFound } from 'next/navigation';
+
 import Hero from '@/components/ui/Hero';
 import MaxWidthWrapper from '@/components/layout-wrappers/MaxWidthWrapper';
+
+import { getProductById } from '@/app/api/products/products';
 import {
   METADATA_PAGE_DESCRIPTION,
   METADATA_PAGE_TITLE,
@@ -14,6 +18,10 @@ interface ProductPageProps {
 export async function generateMetadata({ params }: ProductPageProps) {
   const product = await getProductById(params.productId);
 
+  if ('error' in product) {
+    notFound();
+  }
+
   return {
     title: `${product.title} | ${METADATA_PAGE_TITLE}`,
     description: METADATA_PAGE_DESCRIPTION,
@@ -22,6 +30,10 @@ export async function generateMetadata({ params }: ProductPageProps) {
 
 async function ProductPage({ params }: ProductPageProps) {
   const product = await getProductById(params.productId);
+
+  if ('error' in product) {
+    notFound();
+  }
 
   return (
     <>

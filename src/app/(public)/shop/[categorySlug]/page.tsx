@@ -1,15 +1,17 @@
 import * as React from 'react';
 
+import { notFound } from 'next/navigation';
+
 import ProductsGrid from '@/components/product-category/ProductsGrid';
 
 import { getProductCategories, getProducts } from '@/app/api/products/products';
+import { Category } from '@/types/category';
+import { Product } from '@/types/product';
+import { capitalize } from '@/utils/string-helper';
 import {
   METADATA_PAGE_DESCRIPTION,
   METADATA_PAGE_TITLE,
 } from '@/constants/pages-data.contants';
-import { capitalize } from '@/utils/string-helper';
-import { Product } from '@/types/product';
-import { Category } from '@/types/category';
 
 interface CategoryPageProps {
   params: {
@@ -18,22 +20,37 @@ interface CategoryPageProps {
 }
 
 export async function generateMetadata({ params }: CategoryPageProps) {
-  const categories = await getProductCategories();
+  try {
+    const categories = await getProductCategories();
 
-  const category = categories.find((category: Category) =>
-    category.slug.endsWith(params.categorySlug)
-  );
+    if ('error' in categories) {
+      notFound();
+    }
 
-  const title = category ? `${category.title} category` : 'Products';
+    const category = categories.find((category: Category) =>
+      category.slug.endsWith(params.categorySlug)
+    );
 
-  return {
-    title: `${capitalize(title)} | ${METADATA_PAGE_TITLE}`,
-    description: METADATA_PAGE_DESCRIPTION,
-  };
+    const title = `${category?.title} products` || 'Products';
+
+    return {
+      title: `${capitalize(title)} | ${METADATA_PAGE_TITLE}`,
+      description: METADATA_PAGE_DESCRIPTION,
+    };
+  } catch (e) {
+    return {
+      title: `500 | ${METADATA_PAGE_TITLE}`,
+      description: METADATA_PAGE_DESCRIPTION,
+    };
+  }
 }
 
 async function CategoryPage({ params }: CategoryPageProps) {
   const products: Product[] = await getProducts();
+
+  if ('error' in products) {
+    return <div>There are no products in this category</div>;
+  }
 
   const filteredProducts =
     params.categorySlug === 'products'

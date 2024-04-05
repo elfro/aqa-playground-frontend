@@ -8,15 +8,13 @@ import { getProductCategories } from '@/app/api/products/products';
 async function Sidebar() {
   const links = await getProductCategories();
 
-  if (!Array.isArray(links)) {
-    return <div>No categories found</div>;
+  if ('error' in links) {
+    return;
   }
-
-  const linksAndAll = [...links, { title: 'All', slug: '/shop/products' }];
 
   return (
     <React.Suspense fallback={<Spinner />}>
-      <CategoriesList links={linksAndAll} />
+      <CategoriesList links={links} />
     </React.Suspense>
   );
 }

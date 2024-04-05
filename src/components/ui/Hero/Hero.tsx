@@ -5,11 +5,21 @@ import styled from 'styled-components';
 import { QUERIES } from '@/constants/styles.constants';
 
 interface HeroProps {
-  children: React.ReactNode;
+  children?: React.ReactNode;
   backgroundImageSrc?: string | undefined;
   backgroundColor?: string | undefined;
+  size?: 'cover' | 'contain';
+  repeat?: boolean;
+  position?: string;
 }
-function Hero({ backgroundImageSrc, backgroundColor, children }: HeroProps) {
+function Hero({
+  backgroundImageSrc,
+  backgroundColor,
+  size,
+  repeat,
+  position,
+  children,
+}: HeroProps) {
   return (
     <Wrapper
       $backgroundImageSrc={backgroundImageSrc}
