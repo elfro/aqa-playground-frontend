@@ -1,6 +1,6 @@
 import { auth } from '@/auth';
 
-import MainWithCenteredContentSection from '../../../components/layout-wrappers/MainWithCenteredContentSection';
+import MainWithCenteredContentSection from '@/components/layout-wrappers/MainWithCenteredContentSection';
 import MaxWidthWrapper from '@/components/layout-wrappers/MaxWidthWrapper';
 import {
   METADATA_PAGE_DESCRIPTION,

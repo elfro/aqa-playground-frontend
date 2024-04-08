@@ -89,6 +89,7 @@ const LinkWrapper = styled(Link)`
       filter: drop-shadow(0px -4px 8px var(--color-gray-300));
     }
 `;
+
 const Card = styled.article`
   position: relative;
   padding: 10px;

@@ -6,7 +6,7 @@ import {
   METADATA_PAGE_TITLE,
 } from '@/constants/pages-data.contants';
 import LoginPageWrapper from '@/components/login/LoginPageWrapper';
-import MainWithCenteredContentSection from '../../../components/layout-wrappers/MainWithCenteredContentSection';
+import MainWithCenteredContentSection from '@/components/layout-wrappers/MainWithCenteredContentSection';
 
 export const metadata: Metadata = {
   title: `Login | ${METADATA_PAGE_TITLE}`,
