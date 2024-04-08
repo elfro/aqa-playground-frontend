@@ -11,7 +11,7 @@ function EmptyCart({ onClick }: { onClick: () => void }) {
     <Wrapper>
       <Img src='/empty-cart.svg' alt='Shopping cart with dash stroke arrow' />
       <Text>Your cart is empty</Text>
-      <Button size='small' variant='fill' onClick={onClick}>
+      <Button title='Go shopping' size='small' variant='fill' onClick={onClick}>
         Go shopping
       </Button>
     </Wrapper>

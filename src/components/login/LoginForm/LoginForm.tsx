@@ -8,6 +8,7 @@ import MainSection from '@/components/layout-wrappers/MainSection/MainSection';
 import MaxWidthWrapper from '@/components/layout-wrappers/MaxWidthWrapper/MaxWidthWrapper';
 import Input from '@/components/ui/Input';
 import Button from '@/components/ui/Button';
+import Spinner from '@/components/ui/Spinner';
 function LoginForm() {
   const [errorMessage, dispatch] = useFormState(authenticate, undefined);
 
@@ -59,9 +60,10 @@ function LoginButtonUI() {
       variant='outline'
       type='submit'
       value='Sign In'
+      title='Sign in'
       aria-disabled={pending}
     >
-      {pending ? 'Loading...' : 'Sign in'}
+      {pending ? <Spinner /> : 'Sign in'}
     </LoginButton>
   );
 }

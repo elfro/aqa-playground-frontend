@@ -46,7 +46,7 @@ function CartSidebar() {
             <Title>Shopping Cart</Title>
             <CartItemsList onItemLinkClick={() => setShowCart(false)} />
             <CartOrderSummary />
-            <Button size='small' variant='fill'>
+            <Button title='Proceed to Checkout' size='small' variant='fill'>
               Proceed to Checkout
             </Button>
           </InnerWrapper>

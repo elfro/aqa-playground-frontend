@@ -47,10 +47,6 @@ const FooterAuthItem = styled(AuthButton)`
   font-size: 0.875rem;
   font-weight: ${WEIGHTS.normal};
   color: var(--color-gray-700);
-  width: max-content;
-
-  &:hover {
-    text-decoration: underline;
-  }
 `;
+
 export default MobileMenuFooter;

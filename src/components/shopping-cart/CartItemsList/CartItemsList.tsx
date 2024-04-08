@@ -12,7 +12,7 @@ import {
 } from '@/components/Providers/CartProvider';
 
 import IconButton from '@/components/ui/IconButton/IconButton';
-import UnstyledButton from '@/components/ui/UnstyledButton/UnstyledButton';
+import ButtonAsLink from '@/components/ui/ButtonAsLink';
 
 import { QUERIES, WEIGHTS } from '@/constants/styles.constants';
 
@@ -84,6 +84,7 @@ function CartItemsList({ onItemLinkClick }: { onItemLinkClick: () => void }) {
         ))}
       </ItemsList>
       <DeleteAllButton
+        $underline='initial'
         onClick={() => {
           cartActions({
             type: CART_ITEM_ACTIONS.RESET_ITEMS,
@@ -151,22 +152,17 @@ const Quantity = styled.div`
   }
 `;
 
-const RemoveItemWrapper = styled(IconButton)`
-  grid-area: button;
-  justify-self: end;
-`;
-
-const DeleteAllButton = styled(UnstyledButton)`
+const DeleteAllButton = styled(ButtonAsLink)`
   font-size: 1rem;
   font-weight: ${WEIGHTS.normal};
   color: var(--color-gray-900);
-  width: max-content;
-  border-bottom: 1px solid var(--color-gray-900);
+  text-underline-offset: 5px;
   margin-top: 10px;
+`;
 
-  &:hover {
-    border-color: transparent;
-  }
+const RemoveItemWrapper = styled(IconButton)`
+  grid-area: button;
+  justify-self: end;
 `;
 
 export default CartItemsList;

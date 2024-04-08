@@ -38,6 +38,7 @@ function ProductCard({ product }: { product: Product }) {
             variant='fill'
             size='small'
             value='Add to card'
+            title='Add to card'
             onClick={(e) => {
               e.preventDefault();
               itemActions({

@@ -2,10 +2,10 @@
 
 import * as React from 'react';
 import { signIn, signOut } from 'next-auth/react';
-
-import UnstyledButton from '@/components/ui/UnstyledButton/UnstyledButton';
-import IconButton from '@/components/ui/IconButton';
 import { Session } from 'next-auth';
+
+import IconButton from '@/components/ui/IconButton';
+import ButtonAsLink from '@/components/ui/ButtonAsLink';
 
 interface AuthButtonProps {
   mode: 'desktop' | 'mobile';
@@ -34,9 +34,9 @@ function AuthButton({ mode, session, ...delegated }: AuthButtonProps) {
       {isDesktop ? (
         <IconButton iconId={iconId} title={title} />
       ) : (
-        <UnstyledButton {...delegated}>
+        <ButtonAsLink $underline='hover' {...delegated}>
           {isLoggedIn ? 'Sign out' : 'Sign in'}
-        </UnstyledButton>
+        </ButtonAsLink>
       )}
     </form>
   );

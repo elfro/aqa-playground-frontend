@@ -4,10 +4,11 @@ import styled from 'styled-components';
 export interface ButtonProps extends React.ComponentPropsWithoutRef<'button'> {
   variant?: 'fill' | 'outline' | 'ghost';
   size: 'small' | 'medium' | 'large';
-  children: string | undefined;
+  title: string | undefined;
+  children: React.ReactNode;
 }
 function Button(props: ButtonProps) {
-  const { variant, size, children, ...prop } = props;
+  const { variant, size, title, children, ...prop } = props;
   const ButtonComponent =
     variant === 'outline'
       ? OutlineButton
@@ -16,12 +17,7 @@ function Button(props: ButtonProps) {
         : FillButton;
 
   return (
-    <ButtonComponent
-      size={size}
-      title={children}
-      aria-label={children}
-      {...prop}
-    >
+    <ButtonComponent size={size} title={title} aria-label={title} {...prop}>
       {children}
     </ButtonComponent>
   );
