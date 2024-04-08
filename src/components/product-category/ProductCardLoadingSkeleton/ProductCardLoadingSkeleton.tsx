@@ -2,8 +2,11 @@
 
 import * as React from 'react';
 import styled, { keyframes } from 'styled-components';
-import { WEIGHTS } from '@/constants/styles.constants';
 import { Redacted_Script } from 'next/font/google';
+
+import { PRODUCT_TITLE_SKELETON } from '@/constants/loading-skeleton-data.constants';
+
+import { WEIGHTS } from '@/constants/styles.constants';
 
 const loadingFont = Redacted_Script({
   weight: ['400'],
@@ -16,7 +19,7 @@ function ProductCardLoadingSkeleton() {
     <Card className={loadingFont.className}>
       <ImageWrapper></ImageWrapper>
       <Row>
-        <Name>Lorem ipsum dolor sit amet, consectetur adipiscing elit</Name>
+        <Name>${PRODUCT_TITLE_SKELETON}</Name>
         <Price>100.5</Price>
       </Row>
       <Row>
