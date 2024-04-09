@@ -6,6 +6,10 @@ import { Session } from 'next-auth';
 
 import IconButton from '@/components/ui/IconButton';
 import ButtonAsLink from '@/components/ui/ButtonAsLink';
+import {
+  CART_ITEM_ACTIONS,
+  useCartItemActions,
+} from '@/components/Providers/CartProvider';
 
 interface AuthButtonProps {
   mode: 'desktop' | 'mobile';
@@ -14,8 +18,9 @@ interface AuthButtonProps {
 function AuthButton({ mode, session, ...delegated }: AuthButtonProps) {
   const isLoggedIn = session && session.user?.username !== undefined;
   const isDesktop = mode === 'desktop';
+  const cartActions = useCartItemActions();
 
-  function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
     if (!isLoggedIn) {
@@ -24,13 +29,16 @@ function AuthButton({ mode, session, ...delegated }: AuthButtonProps) {
     }
 
     signOut({ callbackUrl: '/', redirect: true });
+    cartActions({
+      type: CART_ITEM_ACTIONS.RESET_ITEMS,
+    });
   }
 
   const iconId = isLoggedIn ? 'logout' : 'login';
   const title = isLoggedIn ? 'Sign out' : 'Sign in';
 
   return (
-    <form onSubmit={onSubmit}>
+    <form onSubmit={handleSubmit}>
       {isDesktop ? (
         <IconButton iconId={iconId} title={title} />
       ) : (

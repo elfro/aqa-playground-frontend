@@ -6,7 +6,7 @@ import {
   METADATA_PAGE_DESCRIPTION,
   METADATA_PAGE_TITLE,
 } from '@/constants/pages-data.contants';
-import { capitalize } from '@/utils/string-helper';
+import { capitalize } from '@/helpers/string-helper';
 
 export async function generateMetadata() {
   const session = await auth();

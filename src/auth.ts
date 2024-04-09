@@ -43,7 +43,7 @@ export const {
 
           return user;
         } catch (e) {
-          throw new AuthError(e.message);
+          throw new CredentialsSignin(e.message);
         }
       },
     }),

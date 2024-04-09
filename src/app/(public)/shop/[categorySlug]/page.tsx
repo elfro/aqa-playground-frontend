@@ -7,7 +7,7 @@ import ProductsGrid from '@/components/product-category/ProductsGrid';
 import { getProductCategories, getProducts } from '@/app/api/products/products';
 import { Category } from '@/types/category';
 import { Product } from '@/types/product';
-import { capitalize } from '@/utils/string-helper';
+import { capitalize } from '@/helpers/string-helper';
 import {
   METADATA_PAGE_DESCRIPTION,
   METADATA_PAGE_TITLE,

@@ -9,7 +9,7 @@ import MaxWidthWrapper from '@/components/layout-wrappers/MaxWidthWrapper';
 
 import { QUERIES } from '@/constants/styles.constants';
 import { METADATA_PAGE_TITLE } from '@/constants/pages-data.contants';
-// ToDo: add metadata
+
 function Home() {
   return (
     <MainSection>

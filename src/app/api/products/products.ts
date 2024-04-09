@@ -5,8 +5,8 @@ import React from 'react';
 import { Category } from '@/types/category';
 import { ApiErrorResp } from '@/types/ApiErrorResp';
 
-import { slugify } from '@/utils/url-helper';
-import { getErrorMessage } from '@/utils/error-helper';
+import { slugify } from '@/helpers/url-helper';
+import { getErrorMessage } from '@/helpers/error-helper';
 
 export const getProducts = React.cache(async () => {
   const url = `${process.env.BE_URL}/products`;

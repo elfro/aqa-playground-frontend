@@ -1,9 +1,10 @@
 'use client';
 
 import * as React from 'react';
-import MaxWidthWrapper from '@/components/layout-wrappers/MaxWidthWrapper';
-import Spinner from '@/components/ui/Spinner';
 import styled from 'styled-components';
+
+import Spinner from '@/components/ui/Spinner';
+import MaxWidthWrapper from '@/components/layout-wrappers/MaxWidthWrapper';
 
 function ProductLoadingSkeleton() {
   return (

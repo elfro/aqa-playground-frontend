@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { range } from '@/utils/range-helper';
+import { range } from '@/helpers/range-helper';
 import ProductsGridWrapper from '@/components/product-category/ProductsGridWrapper';
 import ProductCardLoadingSkeleton from '@/components/product-category/ProductCardLoadingSkeleton';
 

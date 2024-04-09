@@ -8,18 +8,8 @@ interface HeroProps {
   children?: React.ReactNode;
   backgroundImageSrc?: string | undefined;
   backgroundColor?: string | undefined;
-  size?: 'cover' | 'contain';
-  repeat?: boolean;
-  position?: string;
 }
-function Hero({
-  backgroundImageSrc,
-  backgroundColor,
-  size,
-  repeat,
-  position,
-  children,
-}: HeroProps) {
+function Hero({ backgroundImageSrc, backgroundColor, children }: HeroProps) {
   return (
     <Wrapper
       $backgroundImageSrc={backgroundImageSrc}
