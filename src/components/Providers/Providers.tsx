@@ -1,9 +1,14 @@
 import * as React from 'react';
 
-import StyledComponentsRegistry from '@/app/lib/registry';
+import StyledComponentsRegistry from '@/lib/registry';
+import CartProvider from '@/components/Providers/CartProvider';
 
-function Providers(props: React.PropsWithChildren) {
-  return <StyledComponentsRegistry>{props.children}</StyledComponentsRegistry>;
+async function Providers(props: React.PropsWithChildren) {
+  return (
+    <StyledComponentsRegistry>
+      <CartProvider>{props.children}</CartProvider>
+    </StyledComponentsRegistry>
+  );
 }
 
 export default Providers;

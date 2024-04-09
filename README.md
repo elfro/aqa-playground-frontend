@@ -1,36 +1,91 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+The AQA Playground is a comprehensive testbed designed primarily for passionate SDETs to practice their skills in real-world scenarios.
+
+Here you can find the Frontend part of this project.
+
+Backend part can be found in [aqa-playground repo](https://github.com/elfro/aqa-playground.git). This is the fork of the original implementation by [@sskorol](https://github.com/sskorol/aqa-playground).
+
+## Tech Stack
+
+- React
+- Next.js (App router)
+- styled-components
+
+## System requirements
+
+- npm 9.6.x and above
+
+- Node.js 20.x and above.
 
 ## Getting Started
 
-First, run the development server:
+1. Clone the project
+
+```bash
+git@github.com:elfro/aqa-playground-frontend.git && cd aqa-playground-frontend
+```
+
+2. Install all dependencies
+
+```bash
+npm ci
+```
+
+3. Add environment variables
+
+```bash
+cp .env.local.template .env.local
+```
+
+You can use the following values:
+
+```.dotenv
+BE_URL=http://localhost:9090
+NEXTAUTH_SECRET=aqasecret
+NEXT_PUBLIC_URL=http://localhost:3000
+```
+
+###### Note: such values shouldn't be exposed in the real application.
+
+4. Start the server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+5. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+6. To run production build:
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+```bash
+npm run build && npm run start
+```
 
-## Learn More
+## How to quickly run backend:
 
-To learn more about Next.js, take a look at the following resources:
+1. Make sure Docker is installed.
+2. Clone the project - [Git repo](git@github.com:elfro/aqa-playground.git):
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+git clone git@github.com:elfro/aqa-playground.git && cd aqa-playground
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+3. Add environment variables by following instructions here: [backend config](https://github.com/elfro/aqa-playground/tree/main?tab=readme-ov-file#backend-config).
+4. Create and start containers using `docker-compose.backend.dev.yml` file:
 
-## Deploy on Vercel
+```bash
+docker compose -f docker-compose.backend.dev.yml up --detach
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+It will run up Postgres DB, pgadmin and Backend service. To check, if it's working, open Swagger interface http://localhost:9090/api.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## TODO
+
+- [x] not found
+- [x] loading state for Products Grid, details produces page
+- [ ] notifications - toaster
+- [ ] unit tests
+- [ ] extract h1-h3, p into the separate ui components
+- [ ] sign up page
+- [ ] checkout wizard + payment
+- [ ] update readme
+- [ ] sitemap
