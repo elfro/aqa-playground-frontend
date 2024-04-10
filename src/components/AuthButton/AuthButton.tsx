@@ -16,7 +16,7 @@ interface AuthButtonProps {
   session: Session | null;
 }
 function AuthButton({ mode, session, ...delegated }: AuthButtonProps) {
-  const isLoggedIn = session && session.user?.username !== undefined;
+  const isLoggedIn = session && session.user.accessToken !== undefined;
   const isDesktop = mode === 'desktop';
   const cartActions = useCartItemActions();
 

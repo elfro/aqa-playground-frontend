@@ -3,6 +3,7 @@
 import * as React from 'react';
 import { usePathname } from 'next/navigation';
 import styled from 'styled-components';
+import { Session } from 'next-auth';
 
 import Logo from '@/components/header/Logo';
 import NavLink from '@/components/header/NavLink';
@@ -12,7 +13,7 @@ import AuthButton from '@/components/AuthButton';
 
 import { QUERIES } from '@/constants/styles.constants';
 import { MenuItem } from '@/constants/pages-data.contants';
-import { Session } from 'next-auth';
+import { capitalize } from '@/helpers/string-helper';
 
 function StickyHeader({
   menuItems,
@@ -42,7 +43,12 @@ function StickyHeader({
           ))}
         </Nav>
         <DesktopActions>
-          {isLoggedIn && <span>Hello, {session.user?.username}</span>}
+          {isLoggedIn && (
+            <Username>
+              Hello,{' '}
+              {`${capitalize(session?.user.name.firstname)} ${capitalize(session?.user.name.lastname)}`}
+            </Username>
+          )}
           <CartSidebar />
           <AuthButton mode='desktop' session={session} />
         </DesktopActions>
@@ -93,7 +99,7 @@ const Actions = styled.div`
 `;
 
 const DesktopActions = styled(Actions)`
-  flex-basis: 200px;
+  flex-basis: 250px;
   ${QUERIES.tabletAndLess} {
     display: none;
   }
@@ -107,4 +113,8 @@ const MobileActions = styled(Actions)`
   }
 `;
 
+const Username = styled.span`
+  width: fit-content;
+  text-wrap: nowrap;
+`;
 export default StickyHeader;

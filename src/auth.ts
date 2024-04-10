@@ -5,11 +5,13 @@ import { z } from 'zod';
 
 import { authConfig } from './auth.config';
 import { login } from '@/app/api/auth/auth';
+import { getUserById } from '@/app/api/user/user';
+import { random } from '@/helpers/range-helper';
+import { ExtendedUser } from '@/types/user.type';
+import { ApiErrorResp } from '@/types/ApiErrorResp';
 
 type LoginResponse = {
-  accessToken: string;
-  refreshToken: string;
-  username: string;
+  token: string;
 };
 
 export const {
@@ -21,9 +23,11 @@ export const {
   ...authConfig,
   providers: [
     Credentials({
+      // ToDO: fix
+      // @ts-ignore
       async authorize(credentials, req) {
         const parsedCredentials = z
-          .object({ username: z.string().min(1), password: z.string().min(8) })
+          .object({ username: z.string().min(1), password: z.string().min(6) })
           .safeParse(credentials);
 
         if (!parsedCredentials.success) {
@@ -32,16 +36,25 @@ export const {
 
         const { username, password } = parsedCredentials.data;
         try {
-          const user: LoginResponse = await login(
+          const token: LoginResponse = await login(
             username as string,
             password as string
           );
 
-          if (!user) {
+          if (!token) {
             throw new AuthError('Login failed');
           }
 
-          return user;
+          // since fakestoreapi has the predefined list of users, we'll use first 10
+          const randomId = random(1, 10);
+          const user: ExtendedUser | ApiErrorResp = await getUserById(3);
+
+          if ('error' in user) {
+            throw new AuthError('Login failed');
+          }
+          // const { password: pwd, ...user } = userData;
+
+          return { ...token, user };
         } catch (e) {
           throw new CredentialsSignin(e.message);
         }
@@ -55,13 +68,13 @@ export const {
     // ToDO: fix
     // @ts-ignore
     async session({ session, token, user }) {
+      const { password, __v, ...userData } = token.user;
       return {
         ...session,
         user: {
           ...session.user,
-          accessToken: token.accessToken,
-          refreshToken: token.refreshToken,
-          username: token.username,
+          ...userData,
+          accessToken: token.token,
         },
       };
     },

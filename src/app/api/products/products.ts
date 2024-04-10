@@ -37,7 +37,7 @@ export const getProducts = React.cache(async () => {
 
 export const getProductCategories = React.cache(
   async (addAllCategory: boolean = true) => {
-    const url = `${process.env.BE_URL}/categories`;
+    const url = `${process.env.BE_URL}/products/categories`;
     try {
       const response = await fetch(url, {
         method: 'GET',
