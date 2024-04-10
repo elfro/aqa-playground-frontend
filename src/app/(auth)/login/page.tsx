@@ -18,6 +18,11 @@ function SignInPage() {
     <MainWithCenteredContentSection>
       <LoginPageWrapper>
         <h1>Sign in</h1>
+        <span>
+          Username: mor_2314
+          <br />
+          Password: 83r5^_
+        </span>
         <LoginForm />
       </LoginPageWrapper>
     </MainWithCenteredContentSection>

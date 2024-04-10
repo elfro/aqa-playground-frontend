@@ -40,7 +40,7 @@ function LoginForm() {
         label='Password'
         hideIcon={true}
         required
-        minLength={8}
+        minLength={6}
         value={password}
         onChange={handlePasswordChange}
       />
