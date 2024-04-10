@@ -19,8 +19,10 @@ const MenuItem = styled(UnstyledButton)`
   text-decoration: none;
   width: max-content;
 
-  &:hover {
-    color: var(--color-primary-light);
+  @media (hover: hover) and (prefers-reduced-motion: no-preference) {
+    &:hover {
+      color: var(--color-primary-light);
+    }
   }
 `;
 
