@@ -31,7 +31,7 @@ function ProductCard({ product }: { product: Product }) {
         </ImageWrapper>
         <Row>
           <Name>{product.title}</Name>
-          <Price>{product.price}</Price>
+          <Price>${product.price}</Price>
         </Row>
         <Row>
           <Button
